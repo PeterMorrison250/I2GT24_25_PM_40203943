@@ -7,7 +7,10 @@ namespace Gyrobo
 {
     public class GravityController : MonoBehaviour
     {
-        public GravityDirections GravityDirection { get; private set; }
+        public GravityDirections gravityDirection { get; private set; }
+
+        public float x { get; private set; }
+        public float y { get; private set; }
 
         // Start is called before the first frame update
         void Start()
@@ -23,23 +26,33 @@ namespace Gyrobo
             {
                 if (Input.GetKey(KeyCode.W))
                 {
-                    Physics.gravity = new Vector3(0, 9.8f, 0);
+                    x = 0f;
+                    y = 9.8f;
+                    gravityDirection = GravityDirections.UP;
                 }
 
                 else if ( Input.GetKey(KeyCode.A))
                 {
-                    Physics.gravity = new Vector3(-9.8f, 0, 0);
+                    x = -9.8f;
+                    y = 0f;
+                    gravityDirection = GravityDirections.LEFT;
                 }
 
                 else if (Input.GetKey(KeyCode.S))
                 {
-                    Physics.gravity = new Vector3(0, -9.8f, 0);
+                    x = 0f;
+                    y = -9.8f;
+                    gravityDirection = GravityDirections.DOWN;
                 }
 
                 else if (Input.GetKey(KeyCode.D))
                 {
-                    Physics.gravity = new Vector3(9.8f, 0, 0);
+                    x = 9.8f;
+                    y = 0f;
+                    gravityDirection = GravityDirections.RIGHT;
                 }
+
+                Physics.gravity = new Vector3(x, y, 0);
             }
            
 
