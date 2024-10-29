@@ -7,23 +7,29 @@ namespace Gyrobo
 {
     public class PlayerController : MonoBehaviour
     {
-        public float HorizontalInput;
+        public float horizontalInput;
 
-        public float PlayerSpeed = 5;
+        public float playerSpeed = 5;
+
+        public Rigidbody rigidBody;
 
         // Start is called before the first frame update
         void Start()
         {
-        
+            rigidBody = GetComponent<Rigidbody>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            HorizontalInput = Input.GetAxis("Horizontal");
-            var distance = HorizontalInput * PlayerSpeed * Time.deltaTime;
+            horizontalInput = Input.GetAxis("Horizontal");
+            var distance = horizontalInput * playerSpeed * Time.deltaTime;
             transform.Translate(Vector3.right * distance);
 
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                rigidBody.AddForce(new Vector3(0,5,0), ForceMode.Impulse);
+            }
         }
     }
 }
