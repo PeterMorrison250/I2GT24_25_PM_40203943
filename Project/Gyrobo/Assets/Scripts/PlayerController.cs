@@ -26,24 +26,27 @@ namespace Gyrobo
         // Update is called once per frame
         void Update()
         {
-            if (gravityController.gravityDirection == Enums.GravityDirections.UP || gravityController.gravityDirection == Enums.GravityDirections.DOWN)
-            {
-                horizontalInput = Input.GetAxis("Horizontal");
-                var distance = horizontalInput * playerSpeed * Time.deltaTime;
-                transform.Translate(Vector3.right * distance);
-            } else
-            {
-                verticalInput = Input.GetAxis("Vertical");
-                var distance = verticalInput * playerSpeed * Time.deltaTime;
-                transform.Translate(Vector3.up * distance);
-            }
-
+            horizontalInput = Input.GetAxis("Horizontal");
             
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                ApplyGravityDirection();
-            }
+            transform.Translate(Time.deltaTime * (horizontalInput * playerSpeed) * Vector3.left);
+            // if (gravityController.gravityDirection == Enums.GravityDirections.UP || gravityController.gravityDirection == Enums.GravityDirections.DOWN)
+            // {
+            //     horizontalInput = Input.GetAxis("Horizontal");
+            //     var distance = horizontalInput * playerSpeed * Time.deltaTime;
+            //     transform.Translate(Vector3.right * distance);
+            // } else
+            // {
+            //     verticalInput = Input.GetAxis("Vertical");
+            //     var distance = verticalInput * playerSpeed * Time.deltaTime;
+            //     transform.Translate(Vector3.up * distance);
+            // }
+            //
+            //
+            //
+            // if (Input.GetKeyDown(KeyCode.Space))
+            // {
+            //     ApplyGravityDirection();
+            // }
         }
 
         private void ApplyGravityDirection()
