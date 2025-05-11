@@ -15,13 +15,13 @@ namespace Gyrobo
         
         public Vector3 JumpVelocity = new Vector3(0, 10.0f, 0);
 
-       // public GravityController gravityController;
+        public GravityController gravityController;
 
         // Start is called before the first frame update
         void Start()
         {
             rigidBody = GetComponent<Rigidbody>();
-        //    gravityController = GetComponent<GravityController>();
+            gravityController = GetComponent<GravityController>();
         }
 
         // Update is called once per frame
@@ -33,44 +33,21 @@ namespace Gyrobo
 
         void OnCollisionEnter(Collision collision)
         {
-            IsJumping = false;
+            //IsJumping = false;
         }
 
         private void DetectMovement()
         {
-            horizontalInput = Input.GetAxis("Horizontal");
-            transform.Translate(Time.deltaTime * (horizontalInput * Constants.PlayerSpeed) * Vector3.left);
+            gravityController.Move();
         }
         
         private void DetectJump()
         {
             if (!IsJumping && Input.GetKeyDown(KeyCode.Space))
             {
-                IsJumping = true;
-                rigidBody.AddForce(JumpVelocity * Constants.PlayerJump, ForceMode.Impulse);
+                //IsJumping = true; 
+                gravityController.Jump(rigidBody);
             }
         }
-        
-        
-        // private void ApplyGravityDirection()
-        // {
-        //     switch (gravityController.gravityDirection)
-        //     {
-        //         case Enums.GravityDirections.DOWN:
-        //             rigidBody.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
-        //             break;
-        //         case Enums.GravityDirections.RIGHT:
-        //             rigidBody.AddForce(new Vector3( -5, 0, 0), ForceMode.Impulse);
-        //             break;
-        //         case Enums.GravityDirections.UP:
-        //             rigidBody.AddForce(new Vector3(0, -5, 0), ForceMode.Impulse);
-        //             break;
-        //         case Enums.GravityDirections.LEFT:
-        //             rigidBody.AddForce(new Vector3(5, 0, 0), ForceMode.Impulse);
-        //             break;
-        //         default:
-        //             break;
-        //     }
-        // }
     }
 }
