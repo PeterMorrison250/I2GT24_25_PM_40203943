@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Gyrobo.Enums
 {
-    public enum GravityDirections
+    public enum GravityDirection
     {
-        DOWN = 0,
-        RIGHT = 1,
-        UP = 2,
-        LEFT = 3,
+        Down = 0,
+        Left = 1,
+        Up = 2,
+        Right = 3,
     }
 }
