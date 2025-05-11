@@ -7,7 +7,7 @@ namespace Gyrobo
 {
     public class GravityController : MonoBehaviour
     {
-        public GravityDirections gravityDirection { get; private set; }
+        public GravityDirection gravityDirection { get; private set; }
 
         public float x { get; private set; }
         public float y { get; private set; }
@@ -21,35 +21,34 @@ namespace Gyrobo
         // Update is called once per frame
         void Update()
         {
-            
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                if (Input.GetKey(KeyCode.W))
+                if (Input.GetKey(KeyCode.UpArrow))
                 {
                     x = 0f;
-                    y = 9.8f;
-                    gravityDirection = GravityDirections.UP;
+                    y = 20f;
+                    gravityDirection = GravityDirection.Up;
                 }
 
-                else if ( Input.GetKey(KeyCode.A))
+                else if ( Input.GetKey(KeyCode.LeftArrow))
                 {
-                    x = -9.8f;
+                    x = 20f;
                     y = 0f;
-                    gravityDirection = GravityDirections.LEFT;
+                    gravityDirection = GravityDirection.Left;
                 }
 
-                else if (Input.GetKey(KeyCode.S))
+                else if (Input.GetKey(KeyCode.DownArrow))
                 {
                     x = 0f;
-                    y = -9.8f;
-                    gravityDirection = GravityDirections.DOWN;
+                    y = -20f;
+                    gravityDirection = GravityDirection.Down;
                 }
 
-                else if (Input.GetKey(KeyCode.D))
+                else if (Input.GetKey(KeyCode.RightArrow))
                 {
-                    x = 9.8f;
+                    x = -20f;
                     y = 0f;
-                    gravityDirection = GravityDirections.RIGHT;
+                    gravityDirection = GravityDirection.Right;
                 }
 
                 Physics.gravity = new Vector3(x, y, 0);
