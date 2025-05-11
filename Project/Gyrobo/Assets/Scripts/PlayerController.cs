@@ -13,7 +13,7 @@ namespace Gyrobo
         
         public bool IsJumping = false;
         
-        public Vector3 JumpVelocity = new Vector3(0, 2.0f, 0);
+        public Vector3 JumpVelocity = new Vector3(0, 10.0f, 0);
 
        // public GravityController gravityController;
 
@@ -31,6 +31,11 @@ namespace Gyrobo
             DetectJump();
         }
 
+        void OnCollisionEnter(Collision collision)
+        {
+            IsJumping = false;
+        }
+
         private void DetectMovement()
         {
             horizontalInput = Input.GetAxis("Horizontal");
@@ -41,7 +46,7 @@ namespace Gyrobo
         {
             if (!IsJumping && Input.GetKeyDown(KeyCode.Space))
             {
-                //IsJumping = true;
+                IsJumping = true;
                 rigidBody.AddForce(JumpVelocity * Constants.PlayerJump, ForceMode.Impulse);
             }
         }

@@ -4,6 +4,6 @@
     {
         public const float PlayerSpeed = 10;
 
-        public const float PlayerJump = 2.0f;
+        public const float PlayerJump = 7.0f;
     }
 }
