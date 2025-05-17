@@ -7,8 +7,8 @@ namespace Gyrobo.Enums
     public enum GravityDirection
     {
         Down = 0,
-        Left = 1,
-        Up = 2,
-        Right = 3,
+        Left = 90,
+        Up = -180,
+        Right = -90,
     }
 }

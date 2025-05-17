@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using Gyrobo.Enums;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 namespace Gyrobo
@@ -46,8 +47,8 @@ namespace Gyrobo
             PlayerController.transform.Translate(Time.deltaTime * input * Constants.PlayerSpeed * direction);
         }
 
-        public float x { get; private set; }
-        public float y { get; private set; }
+        public float GravityX { get; private set; }
+        public float GravityY { get; private set; }
 
         // Start is called before the first frame update
         void Start()
@@ -58,40 +59,50 @@ namespace Gyrobo
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (!PlayerController.IsChangingGravity && Input.GetKey(KeyCode.LeftShift))
             {
                 if (Input.GetKey(KeyCode.UpArrow))
                 {
-                    x = 0f;
-                    y = 20f;
-                    GravityDirection = GravityDirection.Up;
+                    UpdateGravity(0f, 20f, GravityDirection.Up);
                 }
 
                 else if ( Input.GetKey(KeyCode.LeftArrow))
                 {
-                    x = 20f;
-                    y = 0f;
-                    GravityDirection = GravityDirection.Left;
+                    UpdateGravity(20f, 0f, GravityDirection.Left);
                 }
 
                 else if (Input.GetKey(KeyCode.DownArrow))
                 {
-                    x = 0f;
-                    y = -20f;
-                    GravityDirection = GravityDirection.Down;
+                    UpdateGravity(0f, -20f, GravityDirection.Down);
                 }
 
                 else if (Input.GetKey(KeyCode.RightArrow))
                 {
-                    x = -20f;
-                    y = 0f;
-                    GravityDirection = GravityDirection.Right;
+                    UpdateGravity(-20f, 0f, GravityDirection.Right);
                 }
 
-                Physics.gravity = new Vector3(x, y, 0);
+                Physics.gravity = new Vector3(GravityX, GravityY, 0);
             }
-           
+            
+            if (PlayerController.IsRotating)
+            {
+         
+            }
+        }
 
+        public void UpdateGravity(float x, float y, GravityDirection gravityDirection)
+        {
+            this.GravityX = x;
+            this.GravityY = y;
+
+            if (GravityDirection != gravityDirection)
+            {
+                GravityDirection = gravityDirection;
+                PlayerController.IsChangingGravity = true;
+                //PlayerController.transform.Rotate(0f, 0f, (float)GravityDirection);
+               
+
+            }
         }
     }
 }
