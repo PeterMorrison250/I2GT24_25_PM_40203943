@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Gyrobo;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.XR;
 
 public class GameManager : MonoBehaviour
@@ -10,6 +12,9 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     
     public TextMeshProUGUI gameOverText;
+    
+    public Button restartButton;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +30,17 @@ public class GameManager : MonoBehaviour
 
     public void HandlePlayerHasDied(object sender, System.EventArgs e)
     {
+        GameOver();
+    }
+
+    public void GameOver()
+    {
         gameOverText.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(true);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
