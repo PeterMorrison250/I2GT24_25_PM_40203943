@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,33 +9,30 @@ namespace Gyrobo
 {
     public class PlayerController : MonoBehaviour
     {
+        private GameObject _gameManagerObject;
+        private GameManager _gameManager;
         public event EventHandler HasDied;
-        
-        public float horizontalInput;
 
-        public Rigidbody rigidBody;
+        private Rigidbody _rigidBody;
         
         public bool IsJumping = false;
 
         public float airTime = 0f;
 
-
-        public bool IsChangingGravity { get; set; }
-
-
-        public GravityController gravityController;
+        private GravityController _gravityController;
 
         // Start is called before the first frame update
         void Start()
         {
-            rigidBody = GetComponent<Rigidbody>();
-            gravityController = GetComponent<GravityController>();
+            _gameManagerObject = GameObject.FindGameObjectsWithTag("GameManager").FirstOrDefault();
+            _gameManager = _gameManagerObject?.GetComponent<GameManager>();
+            _gravityController = _gameManager?.GetComponent<GravityController>();
+            _rigidBody = GetComponent<Rigidbody>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            
             DetectMovement();
             DetectJump();
         }
@@ -47,7 +45,7 @@ namespace Gyrobo
         void OnCollisionEnter(Collision collision)
         {
             IsJumping = false;
-            IsChangingGravity = false;
+            _gameManager.IsChangingGravity = false;
 
             if (airTime > 1.2)
             {
@@ -58,7 +56,7 @@ namespace Gyrobo
 
         private void DetectMovement()
         {
-            gravityController.Move();
+            _gravityController.Move();
         }
         
         private void DetectJump()
@@ -66,10 +64,10 @@ namespace Gyrobo
             if (!IsJumping && Input.GetKeyDown(KeyCode.Space))
             {
                 IsJumping = true; 
-                gravityController.Jump(rigidBody);
+                _gravityController.Jump(_rigidBody);
             }
 
-            if (IsJumping || IsChangingGravity)
+            if (IsJumping || _gameManager.IsChangingGravity)
             {
                 airTime += Time.deltaTime;
             }

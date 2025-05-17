@@ -1333,7 +1333,7 @@ Transform:
   m_GameObject: {fileID: 1594510395}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9, y: 22, z: 0}
+  m_LocalPosition: {x: 7.85, y: 21.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1403,8 +1403,6 @@ MonoBehaviour:
   rigidBody: {fileID: 0}
   IsJumping: 0
   airTime: 0
-  IsRotating: 0
-  JumpVelocity: {x: 0, y: 10, z: 0}
   gravityController: {fileID: 0}
 --- !u!114 &1594510404
 MonoBehaviour:
@@ -1429,9 +1427,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1673946633}
   - component: {fileID: 1673946632}
+  - component: {fileID: 1673946634}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1451,6 +1450,7 @@ MonoBehaviour:
   player: {fileID: 1594510395}
   gameOverText: {fileID: 1548270970}
   restartButton: {fileID: 1827379595}
+  verticalPlatform: {fileID: 0}
   IsGameOver: 0
 --- !u!4 &1673946633
 Transform:
@@ -1467,6 +1467,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1673946634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673946631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce36d91a9b957764ab6efa622a1e829c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerController: {fileID: 1594510403}
 --- !u!1 &1781979191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1822,8 +1835,9 @@ GameObject:
   - component: {fileID: 2075603399}
   - component: {fileID: 2075603398}
   - component: {fileID: 2075603397}
+  - component: {fileID: 2075603402}
   m_Layer: 0
-  m_Name: Platform
+  m_Name: MovingVerticalPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1909,12 +1923,27 @@ Transform:
   m_GameObject: {fileID: 2075603396}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5, y: 24, z: 0}
+  m_LocalPosition: {x: -3.5, y: 23.71, z: 0}
   m_LocalScale: {x: 7, y: 0.5, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2075603402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075603396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6d6bac4d842c447b569088abadff58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxY: 25
+  minY: 22
+  gravityController: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
