@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using Gyrobo.Enums;
 using UnityEngine;
@@ -10,9 +11,12 @@ namespace Gyrobo
 {
     public class GravityController : MonoBehaviour
     {
+        private GameObject _gameManagerObject;
+        private GameManager _gameManager;
+        
         public GravityDirection GravityDirection { get; private set; }
 
-        public PlayerController PlayerController;
+        private PlayerController _playerController;
         
         public Vector3 JumpVelocity
         {
@@ -45,7 +49,7 @@ namespace Gyrobo
             var direction = GravityDirection == GravityDirection.Down || GravityDirection == GravityDirection.Right ? Vector3.left : Vector3.right;
             
             var input = Input.GetAxis(axis);
-            PlayerController.transform.Translate(Time.deltaTime * input * Constants.PlayerSpeed * direction);
+            _playerController.transform.Translate(Time.deltaTime * input * Constants.PlayerSpeed * direction);
         }
 
         public float GravityX { get; private set; }
@@ -54,13 +58,15 @@ namespace Gyrobo
         // Start is called before the first frame update
         void Start() 
         {
-            PlayerController = GetComponent<PlayerController>();
+            _gameManagerObject = GameObject.FindGameObjectsWithTag("GameManager").FirstOrDefault();
+            _gameManager = _gameManagerObject?.GetComponent<GameManager>();
+            _playerController = _gameManager?.player.GetComponent<PlayerController>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (!PlayerController.IsChangingGravity && Input.GetKey(KeyCode.LeftShift))
+            if (!_gameManager.IsChangingGravity && Input.GetKey(KeyCode.LeftShift))
             {
                 if (Input.GetKey(KeyCode.UpArrow))
                 {
@@ -94,8 +100,8 @@ namespace Gyrobo
             if (GravityDirection != gravityDirection)
             {
                 GravityDirection = gravityDirection;
-                PlayerController.IsChangingGravity = true;
-                PlayerController.transform.rotation = Quaternion.Euler(0f, 0f, (float)GravityDirection);
+                _gameManager.IsChangingGravity = true;
+                _playerController.transform.rotation = Quaternion.Euler(0f, 0f, (float)GravityDirection);
                
 
             }

@@ -14,15 +14,21 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     
     public Button restartButton;
+
+    public GameObject verticalPlatform;
     
     public bool IsGameOver = false;
     
+    public bool IsChangingGravity { get; set; }
+    
     private PlayerController _playerController;
+    private GravityController _gravityController;
     
     // Start is called before the first frame update
     void Start()
     {
         _playerController = player.GetComponent<PlayerController>();
+        _gravityController = GetComponent<GravityController>();
         _playerController.HasDied += HandlePlayerHasDied;
     }
 
