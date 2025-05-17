@@ -42,9 +42,10 @@ namespace Gyrobo
         public void Move()
         {
             var axis = GravityDirection == GravityDirection.Down || GravityDirection == GravityDirection.Up ? "Horizontal" : "Vertical";
-            var direction = GravityDirection == GravityDirection.Down || GravityDirection == GravityDirection.Up ? Vector3.left : Vector3.up;
+            var direction = GravityDirection == GravityDirection.Down || GravityDirection == GravityDirection.Right ? Vector3.left : Vector3.right;
+            
             var input = Input.GetAxis(axis);
-            PlayerController.transform.Translate(Time.deltaTime * input * Constants.PlayerSpeed * Vector3.left);
+            PlayerController.transform.Translate(Time.deltaTime * input * Constants.PlayerSpeed * direction);
         }
 
         public float GravityX { get; private set; }
