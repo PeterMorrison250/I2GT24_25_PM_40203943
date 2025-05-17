@@ -16,6 +16,8 @@ namespace Gyrobo
         
         public bool IsJumping = false;
 
+        public float airTime = 0f;
+
         private bool _isChangingGravity = false;
 
         public bool IsChangingGravity
@@ -51,10 +53,21 @@ namespace Gyrobo
             DetectJump();
         }
 
+        public void DamagePlayer()
+        {
+            OnHasDied();
+        }
+
         void OnCollisionEnter(Collision collision)
         {
             IsJumping = false;
             IsChangingGravity = false;
+
+            if (airTime > 1.2)
+            {
+                OnHasDied();
+            }
+            airTime = 0;
         }
 
         private void DetectMovement()
@@ -68,7 +81,11 @@ namespace Gyrobo
             {
                 IsJumping = true; 
                 gravityController.Jump(rigidBody);
-                OnHasDied();
+            }
+
+            if (IsJumping || IsChangingGravity)
+            {
+                airTime += Time.deltaTime;
             }
         }
 

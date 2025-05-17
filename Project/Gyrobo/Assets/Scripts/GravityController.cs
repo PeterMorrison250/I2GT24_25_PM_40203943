@@ -44,14 +44,14 @@ namespace Gyrobo
             var axis = GravityDirection == GravityDirection.Down || GravityDirection == GravityDirection.Up ? "Horizontal" : "Vertical";
             var direction = GravityDirection == GravityDirection.Down || GravityDirection == GravityDirection.Up ? Vector3.left : Vector3.up;
             var input = Input.GetAxis(axis);
-            PlayerController.transform.Translate(Time.deltaTime * input * Constants.PlayerSpeed * direction);
+            PlayerController.transform.Translate(Time.deltaTime * input * Constants.PlayerSpeed * Vector3.left);
         }
 
         public float GravityX { get; private set; }
         public float GravityY { get; private set; }
 
         // Start is called before the first frame update
-        void Start()
+        void Start() 
         {
             PlayerController = GetComponent<PlayerController>();
         }
@@ -99,7 +99,7 @@ namespace Gyrobo
             {
                 GravityDirection = gravityDirection;
                 PlayerController.IsChangingGravity = true;
-                //PlayerController.transform.Rotate(0f, 0f, (float)GravityDirection);
+                PlayerController.transform.rotation = Quaternion.Euler(0f, 0f, (float)GravityDirection);
                
 
             }

@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     
     public Button restartButton;
     
+    public bool IsGameOver = false;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -37,10 +39,12 @@ public class GameManager : MonoBehaviour
     {
         gameOverText.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
+        IsGameOver = true;
     }
 
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
     }
 }

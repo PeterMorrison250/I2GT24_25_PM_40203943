@@ -228,6 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1594510395}
+  GameManager: {fileID: 1673946631}
 --- !u!1 &684507751
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +255,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684507751}
-  m_Material: {fileID: 13400000, guid: 6ed6ca274486c5d448e3d13d9f530a5a, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -912,7 +913,7 @@ RectTransform:
   - {fileID: 1548270969}
   - {fileID: 1827379594}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.999, y: 0, z: 0.04}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1038,7 +1039,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1398675923}
-  m_Material: {fileID: 13400000, guid: 6ed6ca274486c5d448e3d13d9f530a5a, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1262,7 +1263,6 @@ GameObject:
   - component: {fileID: 1594510399}
   - component: {fileID: 1594510398}
   - component: {fileID: 1594510397}
-  - component: {fileID: 1594510396}
   - component: {fileID: 1594510401}
   - component: {fileID: 1594510402}
   - component: {fileID: 1594510403}
@@ -1274,29 +1274,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &1594510396
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1594510395}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1594510397
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1388,7 +1365,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &1594510402
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1425,6 +1402,7 @@ MonoBehaviour:
   horizontalInput: 0
   rigidBody: {fileID: 0}
   IsJumping: 0
+  airTime: 0
   IsRotating: 0
   JumpVelocity: {x: 0, y: 10, z: 0}
   gravityController: {fileID: 0}
@@ -1473,6 +1451,7 @@ MonoBehaviour:
   player: {fileID: 1594510395}
   gameOverText: {fileID: 1548270970}
   restartButton: {fileID: 1827379595}
+  IsGameOver: 0
 --- !u!4 &1673946633
 Transform:
   m_ObjectHideFlags: 0
@@ -1514,7 +1493,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1781979191}
-  m_Material: {fileID: 13400000, guid: 6ed6ca274486c5d448e3d13d9f530a5a, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1752,7 +1731,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1898873168}
-  m_Material: {fileID: 13400000, guid: 6ed6ca274486c5d448e3d13d9f530a5a, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
