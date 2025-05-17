@@ -83,11 +83,6 @@ namespace Gyrobo
 
                 Physics.gravity = new Vector3(GravityX, GravityY, 0);
             }
-            
-            if (PlayerController.IsRotating)
-            {
-         
-            }
         }
 
         public void UpdateGravity(float x, float y, GravityDirection gravityDirection)

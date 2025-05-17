@@ -17,17 +17,25 @@ public class GameManager : MonoBehaviour
     
     public bool IsGameOver = false;
     
+    private PlayerController _playerController;
+    
     // Start is called before the first frame update
     void Start()
     {
-        var playerController = player.GetComponent<PlayerController>();
-        playerController.HasDied += HandlePlayerHasDied;
+        _playerController = player.GetComponent<PlayerController>();
+        _playerController.HasDied += HandlePlayerHasDied;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (player.transform.position.x > Constants.Level1LeftBoundary
+            || player.transform.position.x < Constants.Level1RightBoundary
+            || player.transform.position.y > Constants.Level1TopBoundary
+            || player.transform.position.y < Constants.Level1BottomBoundary)
+        {
+            _playerController.DamagePlayer();
+        }
     }
 
     public void HandlePlayerHasDied(object sender, System.EventArgs e)

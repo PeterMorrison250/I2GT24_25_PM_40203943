@@ -18,24 +18,9 @@ namespace Gyrobo
 
         public float airTime = 0f;
 
-        private bool _isChangingGravity = false;
 
-        public bool IsChangingGravity
-        {
-            get => _isChangingGravity;
-            set
-            {
-                _isChangingGravity = value;
-                if (_isChangingGravity)
-                {
-                    IsRotating = true;
-                }
-            }
-        }
+        public bool IsChangingGravity { get; set; }
 
-        public bool IsRotating = false;
-        
-        public Vector3 JumpVelocity = new Vector3(0, 10.0f, 0);
 
         public GravityController gravityController;
 
@@ -49,6 +34,7 @@ namespace Gyrobo
         // Update is called once per frame
         void Update()
         {
+            
             DetectMovement();
             DetectJump();
         }
