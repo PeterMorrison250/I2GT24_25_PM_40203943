@@ -439,9 +439,10 @@ GameObject:
   - component: {fileID: 1594510398}
   - component: {fileID: 1594510397}
   - component: {fileID: 1594510396}
-  - component: {fileID: 1594510400}
   - component: {fileID: 1594510401}
   - component: {fileID: 1594510402}
+  - component: {fileID: 1594510403}
+  - component: {fileID: 1594510404}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -537,22 +538,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1594510400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1594510395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb1c50a881dff7e499c60a0ed98b94a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizontalInput: 0
-  rigidBody: {fileID: 0}
-  IsJumping: 0
-  JumpVelocity: {x: 0, y: 2, z: 0}
 --- !u!54 &1594510401
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -601,6 +586,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1594510403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594510395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1c50a881dff7e499c60a0ed98b94a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontalInput: 0
+  rigidBody: {fileID: 0}
+  IsJumping: 0
+  IsRotating: 0
+  JumpVelocity: {x: 0, y: 10, z: 0}
+  gravityController: {fileID: 0}
+--- !u!114 &1594510404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594510395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce36d91a9b957764ab6efa622a1e829c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerController: {fileID: 0}
 --- !u!1 &2075603396
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,7 +630,7 @@ GameObject:
   - component: {fileID: 2075603398}
   - component: {fileID: 2075603397}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
