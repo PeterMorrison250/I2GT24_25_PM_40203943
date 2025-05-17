@@ -33,6 +33,11 @@ namespace Gyrobo
         // Update is called once per frame
         void Update()
         {
+            if (_gameManager.IsGameOver)
+            {
+                return;
+            }
+            
             DetectMovement();
             DetectJump();
         }
