@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace Gyrobo
 {
     public class PlayerController : MonoBehaviour
     {
+        public event EventHandler HasDied;
+        
         public float horizontalInput;
 
         public Rigidbody rigidBody;
@@ -65,7 +68,13 @@ namespace Gyrobo
             {
                 IsJumping = true; 
                 gravityController.Jump(rigidBody);
+                OnHasDied();
             }
+        }
+
+        private void OnHasDied()
+        {
+            HasDied?.Invoke(this, EventArgs.Empty);
         }
     }
 }
