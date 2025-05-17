@@ -12,6 +12,23 @@ namespace Gyrobo
         public Rigidbody rigidBody;
         
         public bool IsJumping = false;
+
+        private bool _isChangingGravity = false;
+
+        public bool IsChangingGravity
+        {
+            get => _isChangingGravity;
+            set
+            {
+                _isChangingGravity = value;
+                if (_isChangingGravity)
+                {
+                    IsRotating = true;
+                }
+            }
+        }
+
+        public bool IsRotating = false;
         
         public Vector3 JumpVelocity = new Vector3(0, 10.0f, 0);
 
@@ -33,7 +50,8 @@ namespace Gyrobo
 
         void OnCollisionEnter(Collision collision)
         {
-            //IsJumping = false;
+            IsJumping = false;
+            IsChangingGravity = false;
         }
 
         private void DetectMovement()
@@ -45,7 +63,7 @@ namespace Gyrobo
         {
             if (!IsJumping && Input.GetKeyDown(KeyCode.Space))
             {
-                //IsJumping = true; 
+                IsJumping = true; 
                 gravityController.Jump(rigidBody);
             }
         }
