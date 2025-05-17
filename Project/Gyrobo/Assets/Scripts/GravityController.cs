@@ -14,6 +14,8 @@ namespace Gyrobo
         private GameObject _gameManagerObject;
         private GameManager _gameManager;
         
+        public event GravityChangedEventHandler GravityChanged;
+        
         public GravityDirection GravityDirection { get; private set; }
 
         private PlayerController _playerController;
@@ -88,8 +90,18 @@ namespace Gyrobo
                     UpdateGravity(-20f, 0f, GravityDirection.Right);
                 }
 
+                if (GravityX is 0 && GravityY is 0)
+                {
+                    return;
+                }
+
                 Physics.gravity = new Vector3(GravityX, GravityY, 0);
             }
+        }
+
+        private void OnGravityChanged(GravityDirection gravityDirection)
+        {
+            GravityChanged?.Invoke(this, new GravityChangedEventArgs() { GravityDirection = gravityDirection });
         }
 
         public void UpdateGravity(float x, float y, GravityDirection gravityDirection)
@@ -101,9 +113,7 @@ namespace Gyrobo
             {
                 GravityDirection = gravityDirection;
                 _gameManager.IsChangingGravity = true;
-                _playerController.transform.rotation = Quaternion.Euler(0f, 0f, (float)GravityDirection);
-               
-
+                OnGravityChanged(gravityDirection);
             }
         }
     }
