@@ -11,15 +11,13 @@ namespace Gyrobo
     {
         private GameObject _gameManagerObject;
         private GameManager _gameManager;
+        private GravityController _gravityController;
         public event EventHandler HasDied;
-
-        private Rigidbody _rigidBody;
         
         public bool IsJumping = false;
-
         public float airTime = 0f;
 
-        private GravityController _gravityController;
+        private Rigidbody _rigidBody;
 
         // Start is called before the first frame update
         void Start()
@@ -27,6 +25,7 @@ namespace Gyrobo
             _gameManagerObject = GameObject.FindGameObjectsWithTag("GameManager").FirstOrDefault();
             _gameManager = _gameManagerObject?.GetComponent<GameManager>();
             _gravityController = _gameManager?.GetComponent<GravityController>();
+            _gravityController.GravityChanged += HandleGravityChanged;
             _rigidBody = GetComponent<Rigidbody>();
         }
 
@@ -81,6 +80,11 @@ namespace Gyrobo
         private void OnHasDied()
         {
             HasDied?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void HandleGravityChanged(object sender, GravityChangedEventArgs e)
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f, (float)e.GravityDirection);
         }
     }
 }
