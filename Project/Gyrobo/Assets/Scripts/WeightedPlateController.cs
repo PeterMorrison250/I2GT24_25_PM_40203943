@@ -15,12 +15,6 @@ public class WeightedPlateController : MonoBehaviour
         _laserController = laserEmitter.GetComponent<LaserController>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         _laserController.IsBeamEnabled = false;

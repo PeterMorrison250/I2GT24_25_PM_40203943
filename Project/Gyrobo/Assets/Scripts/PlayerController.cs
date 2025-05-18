@@ -10,14 +10,14 @@ namespace Gyrobo
 {
     public class PlayerController : MonoBehaviour, IResetable
     {
-        private GameObject _gameManagerObject;
-        private GameManager _gameManager;
-        private GravityController _gravityController;
         public event EventHandler HasDied;
         
         public bool IsJumping = false;
         public float airTime = 0f;
-
+        
+        private GameObject _gameManagerObject;
+        private GameManager _gameManager;
+        private GravityController _gravityController;
         private Rigidbody _rigidBody;
 
         // Start is called before the first frame update
@@ -45,6 +45,13 @@ namespace Gyrobo
         public void DamagePlayer()
         {
             OnHasDied();
+        }
+        
+        public void Reset()
+        {
+            IsJumping = false;
+            airTime = 0;
+            RotateToGravity(GravityDirection.Down);
         }
 
         void OnCollisionEnter(Collision collision)
@@ -100,13 +107,6 @@ namespace Gyrobo
         private void RotateToGravity(GravityDirection direction)
         {
             transform.rotation = Quaternion.Euler(0f, 0f, (float)direction);
-        }
-
-        public void Reset()
-        {
-            IsJumping = false;
-            airTime = 0;
-            RotateToGravity(GravityDirection.Down);
         }
     }
 }

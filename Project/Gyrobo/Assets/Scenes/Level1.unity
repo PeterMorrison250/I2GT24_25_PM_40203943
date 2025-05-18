@@ -3003,7 +3003,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxY: 25
   minY: 22
-  gravityController: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
