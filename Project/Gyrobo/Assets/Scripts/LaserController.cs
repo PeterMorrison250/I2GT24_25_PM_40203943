@@ -33,15 +33,6 @@ public class LaserController : MonoBehaviour
         _gameManagerObject = GameObject.FindGameObjectsWithTag(Constants.Tags.GameManager).FirstOrDefault();
         _gameManager = _gameManagerObject?.GetComponent<GameManager>();
         _playerController = _gameManager.player.GetComponent<PlayerController>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!IsBeamEnabled)
-        {
-            return;
-        }
         
         lineRenderer.SetPosition(0, transform.position);
         RaycastHit hit;
@@ -59,5 +50,16 @@ public class LaserController : MonoBehaviour
         {
             lineRenderer.SetPosition(1, Constants.MaxLaserLength * Vector3.up);
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!IsBeamEnabled)
+        {
+            return;
+        }
+        
+        
     }
 }
