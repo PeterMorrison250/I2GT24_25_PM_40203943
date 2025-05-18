@@ -17,7 +17,15 @@ public class LaserController : MonoBehaviour
     void Update()
     {
         lineRenderer.SetPosition(0, transform.position);
-  
-        lineRenderer.SetPosition(1, Constants.MaxLaserLength * Vector3.up);
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, Vector3.up, out hit))
+        {
+            lineRenderer.SetPosition(1, hit.point);
+        }
+        else
+        {
+            lineRenderer.SetPosition(1, Constants.MaxLaserLength * Vector3.up);
+        }
     }
 }
