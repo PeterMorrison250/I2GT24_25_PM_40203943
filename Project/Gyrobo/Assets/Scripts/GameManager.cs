@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour, IResetable
     private PlayerController _playerController;
     private GravityController _gravityController;
     private LevelController _levelController;
+    private LevelBoundary _levelBoundary;
     
     // Start is called before the first frame update
     void Start()
@@ -36,15 +37,19 @@ public class GameManager : MonoBehaviour, IResetable
         _playerController.HasDied += HandlePlayerHasDied;
         _levelController = finishCube.GetComponent<LevelController>();
         _levelController.LevelComplete += HandleLevelComplete;
+
+        var sceneName = SceneManager.GetActiveScene().name;
+        _levelBoundary = LevelBoundaryManager.LevelBoundaryDictionary[sceneName];
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player.transform.position.x > Constants.Level1LeftBoundary
-            || player.transform.position.x < Constants.Level1RightBoundary
-            || player.transform.position.y > Constants.Level1TopBoundary
-            || player.transform.position.y < Constants.Level1BottomBoundary)
+        if (player.transform.position.x >  _levelBoundary.MinX
+            || player.transform.position.x < _levelBoundary.MaxX
+            || player.transform.position.y > _levelBoundary.MaxY
+            || player.transform.position.y < _levelBoundary.MinY)
         {
             _playerController.DamagePlayer();
         }
