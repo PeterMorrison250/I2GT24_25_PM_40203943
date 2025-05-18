@@ -48,14 +48,22 @@ namespace Gyrobo
 
         void OnCollisionEnter(Collision collision)
         {
-            IsJumping = false;
-            _gameManager.IsChangingGravity = false;
-
-            if (airTime > 1.2)
+            if(collision.contacts.Length > 0)
             {
-                OnHasDied();
+                var contact = collision.contacts[0];
+                var dot = Vector3.Dot(contact.normal, _gameManager.GravityDirection.ToVector3().Invert());
+                if(dot > 0.8 || dot < -0.8)
+                {
+                    IsJumping = false;
+                    _gameManager.IsChangingGravity = false;
+
+                    if (airTime > 1.2)
+                    {
+                        OnHasDied();
+                    }
+                    airTime = 0;
+                }
             }
-            airTime = 0;
         }
 
         private void DetectMovement()
