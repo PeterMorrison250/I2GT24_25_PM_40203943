@@ -65,7 +65,7 @@ namespace Gyrobo
                     IsJumping = false;
                     _gameManager.IsChangingGravity = false;
 
-                    if (airTime > 1.5)
+                    if (airTime > Constants.MaxAirTime)
                     {
                         OnHasDied();
                     }
