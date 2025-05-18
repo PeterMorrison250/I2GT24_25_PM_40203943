@@ -71,13 +71,6 @@ namespace Gyrobo
                 {
                     UpdateGravity(-20f, 0f, GravityDirection.Right);
                 }
-
-                if (GravityX is 0 && GravityY is 0)
-                {
-                    return;
-                }
-
-                Physics.gravity = new Vector3(GravityX, GravityY, 0);
             }
         }
         
@@ -111,6 +104,8 @@ namespace Gyrobo
                 _gameManager.IsChangingGravity = true;
                 OnGravityChanged(gravityDirection);
             }
+            
+            Physics.gravity = new Vector3(GravityX, GravityY, 0);
         }
         
         private void OnGravityChanged(GravityDirection gravityDirection)

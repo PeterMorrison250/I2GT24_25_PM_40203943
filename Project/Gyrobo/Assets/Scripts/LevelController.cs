@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Gyrobo;
 using UnityEngine;
 
 public class LevelController : MonoBehaviour
@@ -14,6 +15,9 @@ public class LevelController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        OnLevelComplete();
+        if (other.tag.Equals(Constants.Tags.Player))
+        {
+            OnLevelComplete();
+        }
     }
 }
