@@ -9,7 +9,7 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace Gyrobo
 {
-    public class GravityController : MonoBehaviour
+    public class GravityController : MonoBehaviour, IResetable
     {
         private GameObject _gameManagerObject;
         private GameManager _gameManager;
@@ -113,6 +113,11 @@ namespace Gyrobo
                 _gameManager.IsChangingGravity = true;
                 OnGravityChanged(gravityDirection);
             }
+        }
+
+        public void Reset()
+        {
+            UpdateGravity(0f, -20f, GravityDirection.Down);
         }
     }
 }

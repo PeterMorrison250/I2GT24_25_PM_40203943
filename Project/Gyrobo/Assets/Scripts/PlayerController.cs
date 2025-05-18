@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Gyrobo.Enums;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Gyrobo
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IResetable
     {
         private GameObject _gameManagerObject;
         private GameManager _gameManager;
@@ -32,7 +33,7 @@ namespace Gyrobo
         // Update is called once per frame
         void Update()
         {
-            if (_gameManager.IsGameOver)
+            if (_gameManager.IsGameOver || _gameManager.IsLevelComplete)
             {
                 return;
             }
@@ -57,7 +58,7 @@ namespace Gyrobo
                     IsJumping = false;
                     _gameManager.IsChangingGravity = false;
 
-                    if (airTime > 1.2)
+                    if (airTime > 1.5)
                     {
                         OnHasDied();
                     }
@@ -93,7 +94,19 @@ namespace Gyrobo
         private void HandleGravityChanged(object sender, GravityChangedEventArgs e)
         {
             airTime = 0;
-            transform.rotation = Quaternion.Euler(0f, 0f, (float)e.GravityDirection);
+            RotateToGravity(e.GravityDirection);
+        }
+
+        private void RotateToGravity(GravityDirection direction)
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f, (float)direction);
+        }
+
+        public void Reset()
+        {
+            IsJumping = false;
+            airTime = 0;
+            RotateToGravity(GravityDirection.Down);
         }
     }
 }
