@@ -92,6 +92,7 @@ namespace Gyrobo
 
         private void HandleGravityChanged(object sender, GravityChangedEventArgs e)
         {
+            airTime = 0;
             transform.rotation = Quaternion.Euler(0f, 0f, (float)e.GravityDirection);
         }
     }
