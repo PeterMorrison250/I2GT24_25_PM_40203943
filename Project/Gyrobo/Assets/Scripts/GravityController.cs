@@ -11,13 +11,14 @@ namespace Gyrobo
 {
     public class GravityController : MonoBehaviour, IResetable
     {
+        public static event GravityChangedEventHandler GravityChanged;
+        
         private GameObject _gameManagerObject;
         private GameManager _gameManager;
-        
-        public static event GravityChangedEventHandler GravityChanged;
-
         private PlayerController _playerController;
         
+        public float GravityX { get; private set; }
+        public float GravityY { get; private set; }
         public Vector3 JumpVelocity
         {
             get
@@ -37,24 +38,7 @@ namespace Gyrobo
                 }
             }
         }
-
-        public void Jump(Rigidbody rigidBody)
-        {
-            rigidBody.AddForce(JumpVelocity * Constants.PlayerJump, ForceMode.Impulse);
-        }
-
-        public void Move()
-        {
-            var axis = _gameManager.GravityDirection == GravityDirection.Down || _gameManager.GravityDirection == GravityDirection.Up ? "Horizontal" : "Vertical";
-            var direction = _gameManager.GravityDirection == GravityDirection.Down || _gameManager.GravityDirection == GravityDirection.Right ? Vector3.left : Vector3.right;
-            
-            var input = Input.GetAxis(axis);
-            _playerController.transform.Translate(Time.deltaTime * input * Constants.PlayerSpeed * direction);
-        }
-
-        public float GravityX { get; private set; }
-        public float GravityY { get; private set; }
-
+        
         // Start is called before the first frame update
         void Start() 
         {
@@ -93,16 +77,30 @@ namespace Gyrobo
                     return;
                 }
 
-                 Physics.gravity = new Vector3(GravityX, GravityY, 0);
+                Physics.gravity = new Vector3(GravityX, GravityY, 0);
             }
         }
-
-        private void OnGravityChanged(GravityDirection gravityDirection)
+        
+        public void Jump(Rigidbody rigidBody)
         {
-            GravityChanged?.Invoke(this, new GravityChangedEventArgs() { GravityDirection = gravityDirection });
+            rigidBody.AddForce(JumpVelocity * Constants.PlayerJump, ForceMode.Impulse);
         }
 
-        public void UpdateGravity(float x, float y, GravityDirection gravityDirection)
+        public void Move()
+        {
+            var axis = _gameManager.GravityDirection == GravityDirection.Down || _gameManager.GravityDirection == GravityDirection.Up ? "Horizontal" : "Vertical";
+            var direction = _gameManager.GravityDirection == GravityDirection.Down || _gameManager.GravityDirection == GravityDirection.Right ? Vector3.left : Vector3.right;
+            
+            var input = Input.GetAxis(axis);
+            _playerController.transform.Translate(Time.deltaTime * input * Constants.PlayerSpeed * direction);
+        }
+        
+        public void Reset()
+        {
+            UpdateGravity(0f, -20f, GravityDirection.Down);
+        }
+        
+        private void UpdateGravity(float x, float y, GravityDirection gravityDirection)
         {
             this.GravityX = x;
             this.GravityY = y;
@@ -114,10 +112,10 @@ namespace Gyrobo
                 OnGravityChanged(gravityDirection);
             }
         }
-
-        public void Reset()
+        
+        private void OnGravityChanged(GravityDirection gravityDirection)
         {
-            UpdateGravity(0f, -20f, GravityDirection.Down);
+            GravityChanged?.Invoke(this, new GravityChangedEventArgs() { GravityDirection = gravityDirection });
         }
     }
 }

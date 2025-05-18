@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Gyrobo;
 using Gyrobo.Enums;
@@ -13,16 +11,12 @@ public class MovingVerticalPlatform : MonoBehaviour
 
     private GameObject _gameManagerObject;
     private GameManager _gameManager;
-
-    public GravityController gravityController;
     
     // Start is called before the first frame update
     void Start()
     {
-        _gameManagerObject = GameObject.FindGameObjectsWithTag("GameManager").FirstOrDefault();
+        _gameManagerObject = GameObject.FindGameObjectsWithTag(Constants.Tags.GameManager).FirstOrDefault();
         _gameManager = _gameManagerObject.GetComponent<GameManager>();
-
-        gravityController = _gameManagerObject?.GetComponent<GravityController>();
     }
 
     // Update is called once per frame
@@ -42,7 +36,6 @@ public class MovingVerticalPlatform : MonoBehaviour
                         MovePlatform(Vector3.down);
                     }
                     break;
-            
         }
     }
 

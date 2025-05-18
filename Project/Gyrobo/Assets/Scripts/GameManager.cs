@@ -11,22 +11,17 @@ using UnityEngine.XR;
 public class GameManager : MonoBehaviour, IResetable
 {
     public GameObject player;
-    
     public TextMeshProUGUI gameOverText;
-    
     public Button restartButton;
-
-    public GameObject finishCube;
     
+    public GameObject finishCube;
     public TextMeshProUGUI levelCompleteText;
-
     public Button NextLevelButton;
     
     public bool IsGameOver = false;
     public bool IsLevelComplete = false;
     
     public bool IsChangingGravity { get; set; }
-    
     public GravityDirection GravityDirection { get; set; }
     
     private PlayerController _playerController;
@@ -53,16 +48,6 @@ public class GameManager : MonoBehaviour, IResetable
         {
             _playerController.DamagePlayer();
         }
-    }
-
-    private void HandlePlayerHasDied(object sender, System.EventArgs e)
-    {
-        GameOver();
-    }
-
-    private void HandleLevelComplete(object sender, System.EventArgs e)
-    {
-        LevelComplete();
     }
 
     public void GameOver()
@@ -92,5 +77,15 @@ public class GameManager : MonoBehaviour, IResetable
         IsGameOver = false;
         IsChangingGravity = false;
         IsLevelComplete = false;
+    }
+    
+    private void HandlePlayerHasDied(object sender, System.EventArgs e)
+    {
+        GameOver();
+    }
+
+    private void HandleLevelComplete(object sender, System.EventArgs e)
+    {
+        LevelComplete();
     }
 }
