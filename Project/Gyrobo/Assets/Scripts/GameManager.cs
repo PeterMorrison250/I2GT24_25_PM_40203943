@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.XR;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IResetable
 {
     public GameObject player;
     
@@ -16,9 +16,14 @@ public class GameManager : MonoBehaviour
     
     public Button restartButton;
 
-    public GameObject verticalPlatform;
+    public GameObject finishCube;
+    
+    public TextMeshProUGUI levelCompleteText;
+
+    public Button NextLevelButton;
     
     public bool IsGameOver = false;
+    public bool IsLevelComplete = false;
     
     public bool IsChangingGravity { get; set; }
     
@@ -26,6 +31,7 @@ public class GameManager : MonoBehaviour
     
     private PlayerController _playerController;
     private GravityController _gravityController;
+    private LevelController _levelController;
     
     // Start is called before the first frame update
     void Start()
@@ -33,6 +39,8 @@ public class GameManager : MonoBehaviour
         _playerController = player.GetComponent<PlayerController>();
         _gravityController = GetComponent<GravityController>();
         _playerController.HasDied += HandlePlayerHasDied;
+        _levelController = finishCube.GetComponent<LevelController>();
+        _levelController.LevelComplete += HandleLevelComplete;
     }
 
     // Update is called once per frame
@@ -47,9 +55,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void HandlePlayerHasDied(object sender, System.EventArgs e)
+    private void HandlePlayerHasDied(object sender, System.EventArgs e)
     {
         GameOver();
+    }
+
+    private void HandleLevelComplete(object sender, System.EventArgs e)
+    {
+        LevelComplete();
     }
 
     public void GameOver()
@@ -59,9 +72,25 @@ public class GameManager : MonoBehaviour
         IsGameOver = true;
     }
 
+    public void LevelComplete()
+    {
+        IsLevelComplete = true;
+        levelCompleteText.gameObject.SetActive(true);
+        NextLevelButton.gameObject.SetActive(true);
+    }
+
     public void RestartGame()
     {
+        Reset();
+        _gravityController.Reset();
+        _playerController.Reset();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        
+    }
+
+    public void Reset()
+    {
+        IsGameOver = false;
+        IsChangingGravity = false;
+        IsLevelComplete = false;
     }
 }
