@@ -16,5 +16,11 @@
         public const float Level1BottomBoundary = 0f;
 
         public const int MaxLaserLength = 2000;
+
+        public class Tags
+        {
+            public const string Player = "Player";
+            public const string GameManager = "GameManager";
+        }
     }
 }
