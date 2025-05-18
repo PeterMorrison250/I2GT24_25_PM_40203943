@@ -1745,6 +1745,7 @@ GameObject:
   - component: {fileID: 1535679776}
   - component: {fileID: 1535679775}
   - component: {fileID: 1535679774}
+  - component: {fileID: 1535679779}
   m_Layer: 0
   m_Name: LaserEmitter
   m_TagString: Untagged
@@ -1804,8 +1805,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 1
+        time: 0.23580933
+        value: 0.23404312
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1842,7 +1843,7 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -1942,6 +1943,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1535679779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535679773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e404fe264706b64db08a4208124876f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineRenderer: {fileID: 0}
 --- !u!1 &1548270968
 GameObject:
   m_ObjectHideFlags: 0
