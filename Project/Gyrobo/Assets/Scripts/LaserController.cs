@@ -12,6 +12,20 @@ public class LaserController : MonoBehaviour
     private GameManager _gameManager;
     private PlayerController _playerController;
     
+    private bool _isBeamEnabled = true;
+    public bool IsBeamEnabled
+    {
+        get => _isBeamEnabled;
+        set
+        {
+            if (lineRenderer != null)
+            {
+                lineRenderer.enabled = value;
+                IsBeamEnabled = value;
+            }
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +38,11 @@ public class LaserController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!IsBeamEnabled)
+        {
+            return;
+        }
+        
         lineRenderer.SetPosition(0, transform.position);
         RaycastHit hit;
 
