@@ -9,6 +9,7 @@ namespace Gyrobo
             {"Sandbox",  new LevelBoundary{MinX = 20, MaxX = -20, MinY = -20, MaxY = 20}},
             {"Level1",  new LevelBoundary{MinX = 20, MaxX = -70, MinY = -20, MaxY = 20}},
             {"Level2",  new LevelBoundary{MinX = 20, MaxX = -30, MinY = -20, MaxY = 20}},
+            {"Elevator", new LevelBoundary{MinX = 20, MaxX = -30, MinY = 0, MaxY = 60}},
         };
     }
 }
