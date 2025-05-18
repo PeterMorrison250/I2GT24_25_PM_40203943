@@ -58,7 +58,7 @@ namespace Gyrobo
         // Start is called before the first frame update
         void Start() 
         {
-            _gameManagerObject = GameObject.FindGameObjectsWithTag("GameManager").FirstOrDefault();
+            _gameManagerObject = GameObject.FindGameObjectsWithTag(Constants.Tags.GameManager).FirstOrDefault();
             _gameManager = _gameManagerObject?.GetComponent<GameManager>();
             _playerController = _gameManager?.player.GetComponent<PlayerController>();
         }

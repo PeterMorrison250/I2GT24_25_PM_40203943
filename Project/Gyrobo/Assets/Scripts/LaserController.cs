@@ -16,7 +16,7 @@ public class LaserController : MonoBehaviour
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        _gameManagerObject = GameObject.FindGameObjectsWithTag("GameManager").FirstOrDefault();
+        _gameManagerObject = GameObject.FindGameObjectsWithTag(Constants.Tags.GameManager).FirstOrDefault();
         _gameManager = _gameManagerObject?.GetComponent<GameManager>();
         _playerController = _gameManager.player.GetComponent<PlayerController>();
     }
@@ -31,7 +31,7 @@ public class LaserController : MonoBehaviour
         {
             lineRenderer.SetPosition(1, hit.point);
 
-            if (hit.transform.tag == "Player")
+            if (hit.transform.tag.Equals(Constants.Tags.Player))
             {
                 _playerController.DamagePlayer();
             }
