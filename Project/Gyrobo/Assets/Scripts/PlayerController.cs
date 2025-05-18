@@ -25,7 +25,7 @@ namespace Gyrobo
             _gameManagerObject = GameObject.FindGameObjectsWithTag("GameManager").FirstOrDefault();
             _gameManager = _gameManagerObject?.GetComponent<GameManager>();
             _gravityController = _gameManager?.GetComponent<GravityController>();
-            _gravityController.GravityChanged += HandleGravityChanged;
+            GravityController.GravityChanged += HandleGravityChanged;
             _rigidBody = GetComponent<Rigidbody>();
         }
 

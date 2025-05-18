@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Gyrobo;
+using Gyrobo.Enums;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
     public bool IsGameOver = false;
     
     public bool IsChangingGravity { get; set; }
+    
+    public GravityDirection GravityDirection { get; set; }
     
     private PlayerController _playerController;
     private GravityController _gravityController;

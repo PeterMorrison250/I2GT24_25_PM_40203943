@@ -14,9 +14,7 @@ namespace Gyrobo
         private GameObject _gameManagerObject;
         private GameManager _gameManager;
         
-        public event GravityChangedEventHandler GravityChanged;
-        
-        public GravityDirection GravityDirection { get; private set; }
+        public static event GravityChangedEventHandler GravityChanged;
 
         private PlayerController _playerController;
         
@@ -24,7 +22,7 @@ namespace Gyrobo
         {
             get
             {
-                switch (GravityDirection)
+                switch (_gameManager.GravityDirection)
                 {
                     
                     case GravityDirection.Left: 
@@ -47,8 +45,8 @@ namespace Gyrobo
 
         public void Move()
         {
-            var axis = GravityDirection == GravityDirection.Down || GravityDirection == GravityDirection.Up ? "Horizontal" : "Vertical";
-            var direction = GravityDirection == GravityDirection.Down || GravityDirection == GravityDirection.Right ? Vector3.left : Vector3.right;
+            var axis = _gameManager.GravityDirection == GravityDirection.Down || _gameManager.GravityDirection == GravityDirection.Up ? "Horizontal" : "Vertical";
+            var direction = _gameManager.GravityDirection == GravityDirection.Down || _gameManager.GravityDirection == GravityDirection.Right ? Vector3.left : Vector3.right;
             
             var input = Input.GetAxis(axis);
             _playerController.transform.Translate(Time.deltaTime * input * Constants.PlayerSpeed * direction);
@@ -95,7 +93,7 @@ namespace Gyrobo
                     return;
                 }
 
-                Physics.gravity = new Vector3(GravityX, GravityY, 0);
+                 Physics.gravity = new Vector3(GravityX, GravityY, 0);
             }
         }
 
@@ -109,9 +107,9 @@ namespace Gyrobo
             this.GravityX = x;
             this.GravityY = y;
 
-            if (GravityDirection != gravityDirection)
+            if (_gameManager.GravityDirection != gravityDirection)
             {
-                GravityDirection = gravityDirection;
+                _gameManager.GravityDirection = gravityDirection;
                 _gameManager.IsChangingGravity = true;
                 OnGravityChanged(gravityDirection);
             }
