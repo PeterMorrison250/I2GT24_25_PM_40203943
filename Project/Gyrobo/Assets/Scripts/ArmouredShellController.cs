@@ -13,17 +13,24 @@ public class ArmouredShellController : MonoBehaviour
     
     private GameObject _gameManagerObject;
     private GameManager _gameManager;
+    private PlayerController _playerController;
     
     // Start is called before the first frame update
     void Start()
     {
         _gameManagerObject = GameObject.FindGameObjectsWithTag(Constants.Tags.GameManager).FirstOrDefault();
         _gameManager = _gameManagerObject?.GetComponent<GameManager>();
+        _playerController = _gameManager?.player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_gameManager.IsGameOver || _gameManager.IsLevelComplete)
+        {
+            return;
+        }
+        
         if (IsMovingLeft)
         {
             Move(positionA);
@@ -38,6 +45,17 @@ public class ArmouredShellController : MonoBehaviour
             if (positionB == transform.position)
             {
                 IsMovingLeft = true;
+            }
+        }
+    }
+    
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.contacts.Length > 0)
+        {
+            if (collision.collider.tag.Equals(Constants.Tags.Player))
+            {
+                _playerController.DamagePlayer();
             }
         }
     }
