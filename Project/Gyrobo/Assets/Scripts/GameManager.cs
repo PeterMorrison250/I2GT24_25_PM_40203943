@@ -52,6 +52,11 @@ public class GameManager : MonoBehaviour, IResetable
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            RestartGame();
+        }
+        
         if (_levelBoundary is null)
         {
             return;
