@@ -97,6 +97,15 @@ public class GameManager : MonoBehaviour, IResetable
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void GoToTitleScreen()
+    {
+        _gravityController.Reset();
+        _playerController.Reset();
+        Reset();
+     
+        SceneManager.LoadScene(0);
+    }
+
     public void Reset()
     {
         IsGameOver = false;
