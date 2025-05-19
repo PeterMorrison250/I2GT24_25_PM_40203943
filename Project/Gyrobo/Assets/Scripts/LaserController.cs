@@ -7,6 +7,7 @@ using UnityEngine;
 public class LaserController : MonoBehaviour
 {
     public LineRenderer lineRenderer;
+    public Vector3 BeamOrientation = Vector3.up;
     
     private GameObject _gameManagerObject;
     private GameManager _gameManager;
@@ -49,7 +50,7 @@ public class LaserController : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, Vector3.up, out hit))
+        if (Physics.Raycast(transform.position, BeamOrientation, out hit))
         {
             lineRenderer.SetPosition(1, hit.point);
 
@@ -60,7 +61,7 @@ public class LaserController : MonoBehaviour
         }
         else
         {
-            lineRenderer.SetPosition(1, Constants.MaxLaserLength * Vector3.up);
+            lineRenderer.SetPosition(1, Constants.MaxLaserLength * BeamOrientation);
         }
     }
 }
