@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Gyrobo;
@@ -40,12 +41,21 @@ public class GameManager : MonoBehaviour, IResetable
 
         var sceneName = SceneManager.GetActiveScene().name;
         _levelBoundary = LevelBoundaryManager.LevelBoundaryDictionary[sceneName];
-        
+    }
+
+    private void OnDisable()
+    {
+        _playerController.HasDied -= HandlePlayerHasDied;
+        _levelController.LevelComplete -= HandleLevelComplete;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_levelBoundary is null)
+        {
+            return;
+        }
         if (player.transform.position.x >  _levelBoundary.MinX
             || player.transform.position.x < _levelBoundary.MaxX
             || player.transform.position.y > _levelBoundary.MaxY
@@ -53,6 +63,15 @@ public class GameManager : MonoBehaviour, IResetable
         {
             _playerController.DamagePlayer();
         }
+    }
+
+    public void NextLevel()
+    {
+        Reset();
+        _gravityController.Reset();
+        _playerController.Reset();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
     }
 
     public void GameOver()
@@ -71,9 +90,10 @@ public class GameManager : MonoBehaviour, IResetable
 
     public void RestartGame()
     {
-        Reset();
         _gravityController.Reset();
         _playerController.Reset();
+        Reset();
+     
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
