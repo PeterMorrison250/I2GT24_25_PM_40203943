@@ -8,4 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sandbox.unity
     guid: e3f876524b9bd37429586fca1aaec1ab
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: b91ea702f1efd324d86eba07fd1953ea
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: 25d00c6e214e2744a80c7e40600ba658
+  - enabled: 1
+    path: Assets/Scenes/Elevator.unity
+    guid: 7d078d4314e56fe40a78975aa46432d7
+  - enabled: 1
+    path: Assets/Scenes/GravityLasers.unity
+    guid: 4ddcd9503c09db3499059188a4e0d76f
   m_configObjects: {}

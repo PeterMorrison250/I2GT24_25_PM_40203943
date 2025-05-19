@@ -30,6 +30,11 @@ namespace Gyrobo
             _rigidBody = GetComponent<Rigidbody>();
         }
 
+        private void OnDisable()
+        {
+            GravityController.GravityChanged -= HandleGravityChanged;
+        }
+
         // Update is called once per frame
         void Update()
         {

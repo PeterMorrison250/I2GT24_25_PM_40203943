@@ -12,7 +12,7 @@
 
         public const int MaxLaserLength = 2000;
 
-        public const float MaxAirTime = 2f;
+        public const float MaxAirTime = 3f;
 
         public class Tags
         {
