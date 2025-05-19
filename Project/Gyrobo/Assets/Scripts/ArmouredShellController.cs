@@ -26,7 +26,7 @@ public class ArmouredShellController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_gameManager.IsGameOver || _gameManager.IsLevelComplete)
+        if (_gameManager.IsGameOver || _gameManager.IsLevelComplete || _gameManager.GravityDirection != GravityDirection.Down)
         {
             return;
         }
@@ -51,6 +51,11 @@ public class ArmouredShellController : MonoBehaviour
     
     void OnCollisionEnter(Collision collision)
     {
+        if (_gameManager.GravityDirection != GravityDirection.Down)
+        {
+            return;
+        }
+        
         if(collision.contacts.Length > 0)
         {
             if (collision.collider.tag.Equals(Constants.Tags.Player))
