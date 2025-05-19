@@ -87,6 +87,11 @@ namespace Gyrobo
             var input = Input.GetAxis(axis);
             _playerController.transform.Translate(Time.deltaTime * input * Constants.PlayerSpeed * direction);
         }
+
+        public void Move(GameObject objectToMove, Vector3 direction)
+        {
+            objectToMove.transform.Translate(Time.deltaTime * Constants.EnemySpeed * direction);
+        } 
         
         public void Reset()
         {

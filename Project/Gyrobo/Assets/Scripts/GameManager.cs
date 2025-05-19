@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour, IResetable
             || player.transform.position.y > _levelBoundary.MaxY
             || player.transform.position.y < _levelBoundary.MinY)
         {
-            _playerController.DamagePlayer();
+           // _playerController.DamagePlayer();
         }
     }
 
