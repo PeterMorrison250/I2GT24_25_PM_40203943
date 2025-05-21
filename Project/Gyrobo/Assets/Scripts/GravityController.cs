@@ -13,6 +13,8 @@ namespace Gyrobo
     {
         public static event GravityChangedEventHandler GravityChanged;
         
+        public LineRenderer lineRenderer;
+        
         private GameObject _gameManagerObject;
         private GameManager _gameManager;
         private PlayerController _playerController;
@@ -79,10 +81,22 @@ namespace Gyrobo
             rigidBody.AddForce(JumpVelocity * Constants.PlayerJump, ForceMode.Impulse);
         }
 
-        public void Move()
+        public void Move(GameObject playerObject)
         {
-            var axis = _gameManager.GravityDirection == GravityDirection.Down || _gameManager.GravityDirection == GravityDirection.Up ? "Horizontal" : "Vertical";
+            RaycastHit hit;
+
             var direction = _gameManager.GravityDirection == GravityDirection.Down || _gameManager.GravityDirection == GravityDirection.Right ? Vector3.left : Vector3.right;
+            if (Physics.Raycast(playerObject.transform.position, Vector3.right, out hit, 0.5f))
+            {
+                
+
+                if (hit.transform.tag.Equals(Constants.Tags.Wall))
+                {
+                    return;
+                }
+            }
+            var axis = _gameManager.GravityDirection == GravityDirection.Down || _gameManager.GravityDirection == GravityDirection.Up ? "Horizontal" : "Vertical";
+            
             
             var input = Input.GetAxis(axis);
             _playerController.transform.Translate(Time.deltaTime * input * Constants.PlayerSpeed * direction);

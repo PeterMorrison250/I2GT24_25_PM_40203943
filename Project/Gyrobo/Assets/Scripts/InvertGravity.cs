@@ -10,11 +10,14 @@ public class InvertGravity : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        ReverseGravity();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        rb.AddForce(-(Physics.gravity / 15), ForceMode.Acceleration);
+        rb.AddForce(ReverseGravity(), ForceMode.Acceleration);
     }
+
+    Vector3 ReverseGravity() => Physics.gravity * -1;
 }

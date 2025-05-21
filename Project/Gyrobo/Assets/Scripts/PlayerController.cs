@@ -81,7 +81,7 @@ namespace Gyrobo
 
         private void DetectMovement()
         {
-            _gravityController.Move();
+            _gravityController.Move(gameObject);
         }
         
         private void DetectJump()

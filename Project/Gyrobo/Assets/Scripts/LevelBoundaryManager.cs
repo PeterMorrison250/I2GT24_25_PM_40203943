@@ -10,9 +10,9 @@ namespace Gyrobo
             {"Corridor",  new LevelBoundary{MinX = 20, MaxX = -70, MinY = -20, MaxY = 20}},
             {"LaserButton",  new LevelBoundary{MinX = 20, MaxX = -30, MinY = -20, MaxY = 20}},
             {"Elevator", new LevelBoundary{MinX = 20, MaxX = -30, MinY = 0, MaxY = 60}},
-            {"HeliumElevator", new LevelBoundary{MinX = 20, MaxX = -80, MinY = 0, MaxY = 100}},
+            {"HeliumElevator", new LevelBoundary{MinX = 20, MaxX = -80, MinY = 0, MaxY = 500}},
             {"TitleScreen", new LevelBoundary{MinX = 20, MaxX = -30, MinY = 0, MaxY = 60}},
-            {"GravityLaser", new LevelBoundary{MinX = 40, MaxX = -30, MinY = 0, MaxY = 60}},
+            {"GravityLasers", new LevelBoundary{MinX = 40, MaxX = -30, MinY = 0, MaxY = 60}},
         };
     }
 }

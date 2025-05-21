@@ -3,7 +3,7 @@
     public class Constants
     {
         public const float PlayerSpeed = 10;
-        public const float EnemySpeed = 0.005f;
+        public const float EnemySpeed = 0.1f;
 
         public const float PlayerJump = 2.0f;
 
@@ -19,6 +19,7 @@
         {
             public const string Player = "Player";
             public const string GameManager = "GameManager";
+            public const string Wall = "Wall";
         }
     }
 }
