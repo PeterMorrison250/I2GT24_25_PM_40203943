@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GameManager
   - Wall
+  - Surface
   layers:
   - Default
   - TransparentFX

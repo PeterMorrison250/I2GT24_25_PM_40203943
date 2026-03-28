@@ -1030,6 +1030,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HorizontalPlatform
       objectReference: {fileID: 0}
+    - target: {fileID: 4715500158531323716, guid: 9c3e6874fbde77641aa2d159de7bdb95, type: 3}
+      propertyPath: m_TagString
+      value: Surface
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
