@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Gyrobo;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TurretManager : MonoBehaviour
 {
-    [SerializeField] private float turretRange;
+    [SerializeField] private float range;
     [SerializeField] private float rotationSpeed;
 
     private Transform playerPosition;
@@ -25,7 +26,7 @@ public class TurretManager : MonoBehaviour
         TurnToPlayer();
     }
 
-    private bool IsInRange => Vector3.Distance(playerPosition.position, transform.position) <= turretRange;
+    private bool IsInRange => Vector3.Distance(playerPosition.position, transform.position) <= range;
 
     private void TurnToPlayer()
     {
