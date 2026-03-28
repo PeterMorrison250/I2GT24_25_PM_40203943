@@ -12,6 +12,8 @@ public class TurretManager : MonoBehaviour
     [SerializeField] private float rotationSpeed;
 
     private Transform _playerPosition;
+    [SerializeField]
+    private Transform projectileSpawnPointPosition;
     
     void Start()
     {
@@ -25,7 +27,9 @@ public class TurretManager : MonoBehaviour
             return;
         }
         
+        FireProjectile();
         TurnToPlayer();
+        
     }
 
     private bool IsInRange => Vector3.Distance(_playerPosition.position, transform.position) <= range;
@@ -39,6 +43,6 @@ public class TurretManager : MonoBehaviour
 
     private void FireProjectile()
     {
-       Instantiate(projectilePrefab);
+       Instantiate(projectilePrefab, projectileSpawnPointPosition.position, Quaternion.identity);
     }
 }
