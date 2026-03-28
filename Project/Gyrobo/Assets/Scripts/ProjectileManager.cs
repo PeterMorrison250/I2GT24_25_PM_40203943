@@ -7,7 +7,7 @@ public class ProjectileManager : MonoBehaviour
 {
     protected void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Surface")
+        if (other.gameObject.CompareTag("Surface"))
         {
             Destroy(gameObject);
         }
