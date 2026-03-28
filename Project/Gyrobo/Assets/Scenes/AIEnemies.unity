@@ -650,6 +650,7 @@ MonoBehaviour:
   range: 10
   rotationSpeed: 50
   fireRate: 1
+  fireForce: 500
   playerPosition: {fileID: 781570424}
   projectileSpawnPointPosition: {fileID: 649727407}
 --- !u!1001 &999036168

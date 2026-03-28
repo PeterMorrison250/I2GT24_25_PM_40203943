@@ -11,6 +11,7 @@ public class TurretManager : MonoBehaviour
     [SerializeField] private float range;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float fireRate;
+    [SerializeField] private int fireForce;
 
     [SerializeField]
     private Transform playerPosition;
@@ -48,7 +49,7 @@ public class TurretManager : MonoBehaviour
 
             var rigidbody = projectile.GetComponent<Rigidbody>();
             
-            rigidbody.AddForce(transform.forward * 1000);
+            rigidbody.AddForce(transform.forward * fireForce);
             
             _nextFire = Time.time + fireRate;
         }
