@@ -13,6 +13,7 @@ namespace Gyrobo
             {"HeliumElevator", new LevelBoundary{MinX = 20, MaxX = -80, MinY = 0, MaxY = 500}},
             {"TitleScreen", new LevelBoundary{MinX = 20, MaxX = -30, MinY = 0, MaxY = 60}},
             {"GravityLasers", new LevelBoundary{MinX = 40, MaxX = -30, MinY = 0, MaxY = 60}},
+            {"AIEnemies", new LevelBoundary{MinX = 40, MaxX = -30, MinY = 0, MaxY = 60}},
         };
     }
 }
