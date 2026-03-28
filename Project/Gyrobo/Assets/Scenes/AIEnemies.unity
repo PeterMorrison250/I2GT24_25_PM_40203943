@@ -645,6 +645,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7830655478101382150, guid: 5b12d3c65ffeaf84e96adbc748684391, type: 3}
   range: 10
   rotationSpeed: 50
+  playerPosition: {fileID: 781570424}
   projectileSpawnPointPosition: {fileID: 649727407}
 --- !u!1001 &999036168
 PrefabInstance:
