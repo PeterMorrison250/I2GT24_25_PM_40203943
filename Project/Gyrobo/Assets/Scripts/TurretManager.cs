@@ -20,7 +20,16 @@ public class TurretManager : MonoBehaviour
         {
             return;
         }
+        
+        TurnToPlayer();
     }
 
     private bool IsInRange => Vector3.Distance(playerPosition.position, transform.position) <= turretRange;
+
+    private void TurnToPlayer()
+    {
+        var relativePosition = playerPosition.position - transform.position;
+        var rotation = Quaternion.LookRotation(relativePosition, Vector3.forward);
+        transform.rotation = rotation;
+    }
 }
