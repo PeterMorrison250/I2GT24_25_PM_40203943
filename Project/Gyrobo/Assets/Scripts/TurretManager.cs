@@ -6,6 +6,7 @@ using UnityEngine;
 public class TurretManager : MonoBehaviour
 {
     [SerializeField] private float turretRange;
+    [SerializeField] private float rotationSpeed;
 
     private Transform playerPosition;
     
@@ -30,6 +31,6 @@ public class TurretManager : MonoBehaviour
     {
         var relativePosition = playerPosition.position - transform.position;
         var rotation = Quaternion.LookRotation(relativePosition, Vector3.forward);
-        transform.rotation = rotation;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
     }
 }

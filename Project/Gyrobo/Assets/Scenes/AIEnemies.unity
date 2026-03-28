@@ -611,6 +611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretRange: 10
+  rotationSpeed: 100
 --- !u!1001 &999036168
 PrefabInstance:
   m_ObjectHideFlags: 0
