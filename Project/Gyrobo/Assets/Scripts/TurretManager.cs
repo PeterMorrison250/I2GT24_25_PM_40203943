@@ -44,7 +44,12 @@ public class TurretManager : MonoBehaviour
     {
         if (Time.time > _nextFire)
         {
-            Instantiate(projectilePrefab, projectileSpawnPointPosition.position, Quaternion.identity);
+            var projectile = Instantiate(projectilePrefab, projectileSpawnPointPosition.position, Quaternion.identity);
+
+            var rigidbody = projectile.GetComponent<Rigidbody>();
+            
+            rigidbody.AddForce(transform.forward * 1000);
+            
             _nextFire = Time.time + fireRate;
         }
     }
