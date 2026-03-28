@@ -10,11 +10,14 @@ public class TurretManager : MonoBehaviour
     
     [SerializeField] private float range;
     [SerializeField] private float rotationSpeed;
+    [SerializeField] private float fireRate;
 
     [SerializeField]
     private Transform playerPosition;
     [SerializeField]
     private Transform projectileSpawnPointPosition;
+
+    private float _nextFire;
 
     void Update()
     {
@@ -39,6 +42,10 @@ public class TurretManager : MonoBehaviour
 
     private void FireProjectile()
     {
-       Instantiate(projectilePrefab, projectileSpawnPointPosition.position, Quaternion.identity);
+        if (Time.time > _nextFire)
+        {
+            Instantiate(projectilePrefab, projectileSpawnPointPosition.position, Quaternion.identity);
+            _nextFire = Time.time + fireRate;
+        }
     }
 }
