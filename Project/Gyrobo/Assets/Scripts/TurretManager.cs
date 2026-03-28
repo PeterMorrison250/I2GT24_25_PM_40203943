@@ -6,6 +6,8 @@ using UnityEngine.Serialization;
 
 public class TurretManager : MonoBehaviour
 {
+    public GameObject projectilePrefab;
+    
     [SerializeField] private float range;
     [SerializeField] private float rotationSpeed;
 
