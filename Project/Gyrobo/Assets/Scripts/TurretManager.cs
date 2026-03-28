@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TurretManager : MonoBehaviour
 {
-    [SerializeField] private float turretRange = 10;
+    [SerializeField] private float turretRange;
 
     private Transform playerPosition;
     
