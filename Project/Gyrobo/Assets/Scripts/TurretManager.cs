@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 public class TurretManager : MonoBehaviour
 {
-    public GameObject projectilePrefab;
+    public Rigidbody projectilePrefab;
     
     [SerializeField] private float range;
     [SerializeField] private float rotationSpeed;
@@ -20,7 +20,7 @@ public class TurretManager : MonoBehaviour
 
     private float _nextFire;
 
-    void Update()
+    void FixedUpdate()
     {
         if (!IsInRange)
         {
@@ -45,12 +45,8 @@ public class TurretManager : MonoBehaviour
     {
         if (Time.time > _nextFire)
         {
-            var projectile = Instantiate(projectilePrefab, projectileSpawnPointPosition.position, Quaternion.identity);
-
-            var rigidbody = projectile.GetComponent<Rigidbody>();
-            
-            rigidbody.AddForce(transform.forward * fireForce);
-            
+            var projectileRigidbody = Instantiate(projectilePrefab, projectileSpawnPointPosition.position, Quaternion.identity);
+            projectileRigidbody.AddForce(transform.forward * fireForce);
             _nextFire = Time.time + fireRate;
         }
     }
