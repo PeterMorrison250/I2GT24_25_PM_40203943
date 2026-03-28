@@ -19,7 +19,13 @@ public class TurretManager : MonoBehaviour
     private Transform projectileSpawnPointPosition;
 
     private float _nextFire;
+    private LayerMask _layerMask;
 
+    private void Awake()
+    {
+        _layerMask = LayerMask.GetMask("Player");
+    }
+    
     void FixedUpdate()
     {
         if (!IsInRange)
@@ -28,7 +34,7 @@ public class TurretManager : MonoBehaviour
         }
         IsFacingPlayer();
         TurnToPlayer();
-        FireProjectile();
+        
     }
 
     private bool IsInRange => Vector3.Distance(playerPosition.position, transform.position) <= range;
@@ -42,18 +48,16 @@ public class TurretManager : MonoBehaviour
 
     private void IsFacingPlayer()
     {
-        RaycastHit hit;
-
+        var moveDirection = (projectileSpawnPointPosition.position - transform.position).normalized;
         
-        var moveDirection = (transform.position - projectileSpawnPointPosition.position).normalized;
-        
-        if (Physics.Raycast(transform.position, moveDirection, out hit, 20))
+        if (Physics.Raycast(transform.position, moveDirection, out var hit, range, _layerMask))
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(moveDirection) * hit.distance, Color.yellow);
+            Debug.DrawRay(transform.position, moveDirection * hit.distance, Color.yellow);
+            FireProjectile();
         }
         else
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(moveDirection), Color.white);
+            Debug.DrawRay(transform.position, moveDirection * 1000, Color.white);
         }
     }
 
