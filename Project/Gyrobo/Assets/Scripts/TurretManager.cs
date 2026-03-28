@@ -11,11 +11,11 @@ public class TurretManager : MonoBehaviour
     [SerializeField] private float range;
     [SerializeField] private float rotationSpeed;
 
-    private Transform playerPosition;
+    private Transform _playerPosition;
     
     void Start()
     {
-        playerPosition = FindObjectOfType<PlayerController>().transform;
+        _playerPosition = FindObjectOfType<PlayerController>().transform;
     }
 
     void Update()
@@ -28,12 +28,17 @@ public class TurretManager : MonoBehaviour
         TurnToPlayer();
     }
 
-    private bool IsInRange => Vector3.Distance(playerPosition.position, transform.position) <= range;
+    private bool IsInRange => Vector3.Distance(_playerPosition.position, transform.position) <= range;
 
     private void TurnToPlayer()
     {
-        var relativePosition = playerPosition.position - transform.position;
+        var relativePosition = _playerPosition.position - transform.position;
         var rotation = Quaternion.LookRotation(relativePosition, Vector3.forward);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+    }
+
+    private void FireProjectile()
+    {
+       Instantiate(projectilePrefab);
     }
 }
