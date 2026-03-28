@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using Gyrobo;
 using UnityEngine;
 
 public class TurretManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private float turretRange = 10;
+
+    private Transform playerPosition;
+    
     void Start()
     {
-        
+        playerPosition = FindObjectOfType<PlayerController>().transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (!IsInRange)
+        {
+            return;
+        }
     }
+
+    private bool IsInRange => Vector3.Distance(playerPosition.position, transform.position) <= turretRange;
 }
