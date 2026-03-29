@@ -30,7 +30,12 @@ public class ChaserManager : MonoBehaviour
 
     private void TrackPlayer()
     {
-        var moveDirection = (frontTrackerTransform.position - transform.position).normalized;
+        TrackRaycast(frontTrackerTransform);
+    }
+
+    private void TrackRaycast(Transform trackerTransform)
+    {
+        var moveDirection = (trackerTransform.position - transform.position).normalized;
 
         if (Physics.Raycast(transform.position, moveDirection, out var hit, range, _layerMask))
         {
