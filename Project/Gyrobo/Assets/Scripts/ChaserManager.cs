@@ -95,6 +95,14 @@ public class ChaserManager : MonoBehaviour
 
     private void TrackSurfaces()
     {
+        if (!_isJumping)
+        {
+            TrackGaps();
+        }
+    }
+
+    private void TrackGaps()
+    {
         if (TrackRaycast(downTrackerTransform, _surfaceLayerMask, out var hit))
         {
             if (hit is null)
