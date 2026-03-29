@@ -43,7 +43,6 @@ public class ChaserManager : MonoBehaviour
             || isTrackingUp
             || isTrackingDown)
         {
-            _chaserState = ChaserState.Chasing;
             ChasePlayer();
         }
         else
@@ -78,6 +77,10 @@ public class ChaserManager : MonoBehaviour
         if (IsInAttackingRange)
         {
             _chaserState = ChaserState.Attacking;
+        }
+        else
+        {
+            _chaserState = ChaserState.Chasing;
         }
     }
 }
