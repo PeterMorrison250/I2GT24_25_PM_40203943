@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class ChaserManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float range;
+    [SerializeField] private Transform playerTransform;
 
-    // Update is called once per frame
-    void Update()
+
+    private void FixedUpdate()
     {
-        
+        if (!IsInRange)
+        {
+            return;
+        }
     }
+    
+    private bool IsInRange => Vector3.Distance(playerTransform.position, transform.position) <= range;
+
 }
