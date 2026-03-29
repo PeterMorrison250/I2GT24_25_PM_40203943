@@ -52,6 +52,7 @@ public class ChaserManager : MonoBehaviour
         if (!IsInChasingRange)
         {
             _lastTrackerDirection = ChaserTrackerDirection.None;
+            _chaserState = ChaserState.Idle;
             return;
         }
 
