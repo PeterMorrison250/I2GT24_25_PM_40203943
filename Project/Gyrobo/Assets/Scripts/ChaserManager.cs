@@ -35,10 +35,17 @@ public class ChaserManager : MonoBehaviour
         if (Physics.Raycast(transform.position, moveDirection, out var hit, range, _layerMask))
         {
             Debug.DrawRay(transform.position, moveDirection * hit.distance, Color.yellow);
+            ChasePlayer();
         }
         else
         {
             Debug.DrawRay(transform.position, moveDirection * 1000, Color.white);
         }
+    }
+
+    private void ChasePlayer()
+    {
+        var step = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, step);
     }
 }
