@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Gyrobo.Enums;
 using UnityEngine;
 
 public class ChaserManager : MonoBehaviour
@@ -12,10 +13,12 @@ public class ChaserManager : MonoBehaviour
     [SerializeField] private float speed;
     
     private LayerMask _layerMask;
+    private ChaserState _chaserState;
     
     private void Awake()
     {
         _layerMask = LayerMask.GetMask("Player");
+        _chaserState = ChaserState.Idle;
     }
     
     private void FixedUpdate()
@@ -40,7 +43,12 @@ public class ChaserManager : MonoBehaviour
             || isTrackingUp
             || isTrackingDown)
         {
+            _chaserState = ChaserState.Chasing;
             ChasePlayer();
+        }
+        else
+        {
+            _chaserState = ChaserState.Idle;
         }
     }
 
