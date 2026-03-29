@@ -204,6 +204,11 @@ public class ChaserManager : MonoBehaviour
         }
 
         _chaserState = IsInAttackingRange ? ChaserState.Attacking : ChaserState.Chasing;
+
+        if (_chaserState is ChaserState.Attacking)
+        {
+            //TODO: Attack
+        }
     }
 
     private void ChangeDirection()
