@@ -150,7 +150,7 @@ public class ChaserManager : MonoBehaviour
         if (!_isJumping)
         {
             _isJumping = true;
-            chaserRigidbody.AddForce(Vector3.up * 10, ForceMode.Impulse);
+            chaserRigidbody.AddForce(GravityDirectionHandler.JumpDirection(_currentGravityDirection) * 10, ForceMode.Impulse);
         }
     }
 
@@ -176,7 +176,7 @@ public class ChaserManager : MonoBehaviour
         {
             var step = speed * Time.deltaTime;
             var positionAlongPlatform = new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z);
-            //transform.position = Vector3.MoveTowards(transform.position, positionAlongPlatform, step);
+            transform.position = Vector3.MoveTowards(transform.position, positionAlongPlatform, step);
         }
 
         _chaserState = IsInAttackingRange ? ChaserState.Attacking : ChaserState.Chasing;

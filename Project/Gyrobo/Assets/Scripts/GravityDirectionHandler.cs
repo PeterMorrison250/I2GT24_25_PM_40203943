@@ -45,5 +45,21 @@ namespace Gyrobo
                     return default;
             }
         }
+        
+        public static Vector3 JumpDirection(GravityDirection gravityDirection)
+        {
+            switch (gravityDirection)
+            {
+                case GravityDirection.Down:
+                    return Vector3.up;
+                case GravityDirection.Up:
+                    return Vector3.down;
+                case GravityDirection.Right:
+                    return Vector3.left;
+                case GravityDirection.Left:
+                    return Vector3.right;
+                default: return Vector3.up;
+            }
+        }
     }
 }
