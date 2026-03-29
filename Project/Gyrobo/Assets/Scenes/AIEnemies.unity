@@ -988,6 +988,7 @@ MonoBehaviour:
   playerTransform: {fileID: 781570424}
   frontTrackerTransform: {fileID: 787148182}
   upTrackerTransform: {fileID: 2044357660}
+  downTrackerTransform: {fileID: 192184751}
   speed: 5
 --- !u!54 &925235176
 Rigidbody:
