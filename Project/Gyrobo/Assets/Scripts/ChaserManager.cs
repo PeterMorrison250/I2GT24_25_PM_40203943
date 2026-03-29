@@ -49,11 +49,7 @@ public class ChaserManager : MonoBehaviour
 
     protected void OnCollisionEnter(Collision other)
     {
-        if (_isJumping 
-            && other.gameObject.CompareTag("Surface"))
-        {
-            _isJumping = false;
-        }
+        HandleLanding(other);
     }
 
     private bool IsInChasingRange => Vector3.Distance(playerTransform.position, transform.position) <= chasingRange;
@@ -197,5 +193,14 @@ public class ChaserManager : MonoBehaviour
         }
         
         _lastTrackerDirection = ChaserTrackerDirection.None;
+    }
+
+    private void HandleLanding(Collision other)
+    {
+        if (_isJumping 
+            && other.gameObject.CompareTag("Surface"))
+        {
+            _isJumping = false;
+        }
     }
 }
