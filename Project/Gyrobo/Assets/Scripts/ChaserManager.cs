@@ -13,6 +13,7 @@ public class ChaserManager : MonoBehaviour
     
     private LayerMask _layerMask;
     private ChaserState _chaserState;
+    private ChaserTrackerDirection _lastTrackerDirection;
     
     private void Awake()
     {
@@ -35,13 +36,27 @@ public class ChaserManager : MonoBehaviour
 
     private void TrackPlayer()
     {
-        var isTrackingFront = TrackRaycast(frontTrackerTransform);
-        var isTrackingUp = TrackRaycast(upTrackerTransform);
-        var isTrackingDown = TrackRaycast(downTrackerTransform);
+        var isTracking = false;
+        
+        if (TrackRaycast(frontTrackerTransform))
+        {
+            _lastTrackerDirection = ChaserTrackerDirection.Front;
+            isTracking = true;
+        }
+        
+        if (TrackRaycast(upTrackerTransform))
+        {
+            _lastTrackerDirection = ChaserTrackerDirection.Up;
+            isTracking = true;
+        }
+        
+        if (TrackRaycast(downTrackerTransform))
+        {
+            _lastTrackerDirection = ChaserTrackerDirection.Down;
+            isTracking = true;
+        }
 
-        if (isTrackingFront
-            || isTrackingUp
-            || isTrackingDown)
+        if (isTracking)
         {
             ChasePlayer();
         }
