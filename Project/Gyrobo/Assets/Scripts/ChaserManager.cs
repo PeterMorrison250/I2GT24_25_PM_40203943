@@ -31,6 +31,7 @@ public class ChaserManager : MonoBehaviour
     }
     
     private bool IsInChasingRange => Vector3.Distance(playerTransform.position, transform.position) <= chasingRange;
+    private bool IsInAttackingRange => Vector3.Distance(playerTransform.position, transform.position) <= attackingRange;
 
     private void TrackPlayer()
     {
@@ -70,5 +71,9 @@ public class ChaserManager : MonoBehaviour
         var step = speed * Time.deltaTime;
         var positionAlongPlatform = new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, positionAlongPlatform, step);
+        if (IsInAttackingRange)
+        {
+            _chaserState = ChaserState.Attacking;
+        }
     }
 }
