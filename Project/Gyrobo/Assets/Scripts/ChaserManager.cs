@@ -63,10 +63,6 @@ public class ChaserManager : MonoBehaviour
         {
             ChasePlayer();
         }
-        else
-        {
-            //_chaserState = ChaserState.Idle;
-        }
 
         if (_lastTrackerDirection is not ChaserTrackerDirection.None
             && TrackRaycast(backTrackerTransform))
@@ -108,8 +104,7 @@ public class ChaserManager : MonoBehaviour
             _facingDirection = FacingDirection.Left;
             transform.rotation = Quaternion.Euler(0, 90, 0);
         }
-
-        if (_facingDirection == FacingDirection.Left)
+        else if (_facingDirection == FacingDirection.Left)
         {
             _facingDirection = FacingDirection.Right;
             transform.rotation = Quaternion.Euler(0, 270, 0);
