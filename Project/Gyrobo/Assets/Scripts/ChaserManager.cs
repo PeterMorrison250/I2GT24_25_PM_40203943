@@ -12,14 +12,16 @@ public class ChaserManager : MonoBehaviour
     [SerializeField] private Transform backTrackerTransform;
     [SerializeField] private float speed;
     
-    private LayerMask _layerMask;
+    private LayerMask _playerLayerMask;
+    private LayerMask _surfaceLayerMask;
     private ChaserState _chaserState;
     private ChaserTrackerDirection _lastTrackerDirection;
     private FacingDirection _facingDirection = FacingDirection.Left;
     
     private void Awake()
     {
-        _layerMask = LayerMask.GetMask("Player");
+        _playerLayerMask = LayerMask.GetMask("Player");
+        _surfaceLayerMask = LayerMask.GetMask("Surface");
         _chaserState = ChaserState.Idle;
     }
     
@@ -41,19 +43,19 @@ public class ChaserManager : MonoBehaviour
     {
         var isTracking = false;
         
-        if (TrackRaycast(frontTrackerTransform))
+        if (TrackRaycast(frontTrackerTransform, _playerLayerMask))
         {
             _lastTrackerDirection = ChaserTrackerDirection.Front;
             isTracking = true;
         }
         
-        if (TrackRaycast(upTrackerTransform))
+        if (TrackRaycast(upTrackerTransform, _playerLayerMask))
         {
             _lastTrackerDirection = ChaserTrackerDirection.Up;
             isTracking = true;
         }
         
-        if (TrackRaycast(downTrackerTransform))
+        if (TrackRaycast(downTrackerTransform, _playerLayerMask))
         {
             _lastTrackerDirection = ChaserTrackerDirection.Down;
             isTracking = true;
@@ -65,17 +67,25 @@ public class ChaserManager : MonoBehaviour
         }
 
         if (_lastTrackerDirection is not ChaserTrackerDirection.None
-            && TrackRaycast(backTrackerTransform))
+            && TrackRaycast(backTrackerTransform, _playerLayerMask))
         {
             ChangeDirection();
         }
     }
 
-    private bool TrackRaycast(Transform trackerTransform)
+    private void TrackSurfaces()
+    {
+        if (TrackRaycast(downTrackerTransform, _surfaceLayerMask))
+        {
+            
+        }
+    }
+
+    private bool TrackRaycast(Transform trackerTransform, LayerMask layerMask)
     {
         var moveDirection = (trackerTransform.position - transform.position).normalized;
 
-        if (Physics.Raycast(transform.position, moveDirection, out var hit, chasingRange, _layerMask))
+        if (Physics.Raycast(transform.position, moveDirection, out var hit, chasingRange, layerMask))
         {
             Debug.DrawRay(transform.position, moveDirection * hit.distance, Color.yellow);
             return true;
