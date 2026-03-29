@@ -102,15 +102,23 @@ public class ChaserManager : MonoBehaviour
                 return;
             }
 
-            var heightDifferenceBetweenChaserAndFloor = transform.position.y - hit.Value.point.y - 1;
-            if (Math.Abs(heightDifferenceBetweenChaserAndFloor) > 0.00001)
+            if (TrackRaycast(baseTrackerTransform, _surfaceLayerMask, out var baseHit))
             {
-                if (!_isJumping)
+                if (baseHit is null)
                 {
-                    _isJumping = true;
-                    chaserRigidbody.AddForce(Vector3.up * 10, ForceMode.Impulse);
+                    return;
                 }
                 
+                var heightDifferenceBetweenChaserAndFloor = baseHit.Value.point.y - hit.Value.point.y;
+                if (Math.Abs(heightDifferenceBetweenChaserAndFloor) > 0.00001)
+                {
+                    if (!_isJumping)
+                    {
+                        _isJumping = true;
+                        chaserRigidbody.AddForce(Vector3.up * 10, ForceMode.Impulse);
+                    }
+                
+                }
             }
         }
     }
