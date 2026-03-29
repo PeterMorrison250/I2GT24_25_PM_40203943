@@ -1403,6 +1403,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3321298313005777273, guid: abc62943649cc6c4ca8a24608075729e, type: 3}
+      propertyPath: Chaser
+      value: 
+      objectReference: {fileID: 925235170}
+    - target: {fileID: 3321298313005777273, guid: abc62943649cc6c4ca8a24608075729e, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 781570423}
