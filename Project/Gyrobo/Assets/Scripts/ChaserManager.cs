@@ -34,9 +34,11 @@ public class ChaserManager : MonoBehaviour
     {
         var isTrackingFront = TrackRaycast(frontTrackerTransform);
         var isTrackingUp = TrackRaycast(upTrackerTransform);
+        var isTrackingDown = TrackRaycast(downTrackerTransform);
 
         if (isTrackingFront
-            || isTrackingUp)
+            || isTrackingUp
+            || isTrackingDown)
         {
             ChasePlayer();
         }
