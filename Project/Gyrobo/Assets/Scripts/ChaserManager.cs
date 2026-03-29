@@ -12,12 +12,15 @@ public class ChaserManager : MonoBehaviour
     [SerializeField] private Transform downTrackerTransform;
     [SerializeField] private Transform backTrackerTransform;
     [SerializeField] private float speed;
+    [SerializeField] private Rigidbody chaserRigidbody;
     
     private LayerMask _playerLayerMask;
     private LayerMask _surfaceLayerMask;
     private ChaserState _chaserState;
     private ChaserTrackerDirection _lastTrackerDirection;
     private FacingDirection _facingDirection = FacingDirection.Left;
+
+    private bool _isJumping;
     
     private void Awake()
     {
@@ -25,7 +28,12 @@ public class ChaserManager : MonoBehaviour
         _surfaceLayerMask = LayerMask.GetMask("Surface");
         _chaserState = ChaserState.Idle;
     }
-    
+
+    private void Start()
+    {
+        chaserRigidbody =  GetComponent<Rigidbody>();
+    }
+
     private void FixedUpdate()
     {
         if (!IsInChasingRange)
@@ -37,7 +45,16 @@ public class ChaserManager : MonoBehaviour
         TrackPlayer();
         TrackSurfaces();
     }
-    
+
+    protected void OnCollisionEnter(Collision other)
+    {
+        if (_isJumping 
+            && other.gameObject.CompareTag("Surface"))
+        {
+            _isJumping = false;
+        }
+    }
+
     private bool IsInChasingRange => Vector3.Distance(playerTransform.position, transform.position) <= chasingRange;
     private bool IsInAttackingRange => Vector3.Distance(playerTransform.position, transform.position) <= attackingRange;
 
@@ -87,7 +104,12 @@ public class ChaserManager : MonoBehaviour
             var heightDifferenceBetweenChaserAndFloor = transform.position.y - hit.Value.point.y - 1;
             if (Math.Abs(heightDifferenceBetweenChaserAndFloor) > 0.00001)
             {
-                // TODO: jump logic
+                if (!_isJumping)
+                {
+                    _isJumping = true;
+                    chaserRigidbody.AddForce(Vector3.up * 10, ForceMode.Impulse);
+                }
+                
             }
         }
     }
