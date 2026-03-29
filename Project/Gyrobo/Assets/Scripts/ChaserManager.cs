@@ -21,14 +21,18 @@ public class ChaserManager : MonoBehaviour
     private ChaserState _chaserState;
     private ChaserTrackerDirection _lastTrackerDirection;
     private FacingDirection _facingDirection = FacingDirection.Left;
-
     private bool _isJumping;
     private GravityDirection _currentGravityDirection;
+
+    private static readonly float GapDetectionRange = 5;
+    private static readonly float ChaserDownPositionRange = 2;
+    private static readonly float ChaserFrontPositionRange = 2;
+    private static readonly float ChaserUpPositionRange = 10;
     
     private void Awake()
     {
-        _playerLayerMask = LayerMask.GetMask("Player");
-        _surfaceLayerMask = LayerMask.GetMask("Surface");
+        _playerLayerMask = LayerMask.GetMask(Constants.Tags.Player);
+        _surfaceLayerMask = LayerMask.GetMask(Constants.Tags.Surface);
         _chaserState = ChaserState.Idle;
     }
 
@@ -38,6 +42,11 @@ public class ChaserManager : MonoBehaviour
         chaserRigidbody =  GetComponent<Rigidbody>();
     }
 
+    private void OnDisable()
+    {
+        GravityController.GravityChanged -= HandleGravityChanged;
+    }
+    
     private void FixedUpdate()
     {
         if (!IsInChasingRange)
@@ -58,7 +67,23 @@ public class ChaserManager : MonoBehaviour
     private bool IsInChasingRange => Vector3.Distance(playerTransform.position, transform.position) <= chasingRange;
     private bool IsInAttackingRange => Vector3.Distance(playerTransform.position, transform.position) <= attackingRange;
 
+    private bool HasPlayerJumpedBehindChaser => _lastTrackerDirection is not ChaserTrackerDirection.None
+                                                && TrackRaycast(backTrackerTransform, _playerLayerMask, out _);
+
     private void TrackPlayer()
+    {
+        if (DetectIfPlayerIsInFront())
+        {
+            ChasePlayer();
+        }
+
+        if (HasPlayerJumpedBehindChaser)
+        {
+            ChangeDirection();
+        }
+    }
+
+    private bool DetectIfPlayerIsInFront()
     {
         var isTracking = false;
         
@@ -79,17 +104,8 @@ public class ChaserManager : MonoBehaviour
             _lastTrackerDirection = ChaserTrackerDirection.Down;
             isTracking = true;
         }
-
-        if (isTracking)
-        {
-            ChasePlayer();
-        }
-
-        if (_lastTrackerDirection is not ChaserTrackerDirection.None
-            && TrackRaycast(backTrackerTransform, _playerLayerMask, out _))
-        {
-            ChangeDirection();
-        }
+        
+        return isTracking;
     }
 
     private void TrackSurfaces()
@@ -97,20 +113,20 @@ public class ChaserManager : MonoBehaviour
         if (!_isJumping)
         {
             TrackGaps();
-            TrackSteps();
+            TrackLedges();
         }
     }
 
     private void TrackGaps()
     {
-        if (TrackRaycast(downTrackerTransform, _surfaceLayerMask, out var hit, 5))
+        if (TrackRaycast(downTrackerTransform, _surfaceLayerMask, out var hit, GapDetectionRange))
         { 
             if (hit is null)
             { 
                 return;
             }
 
-            if (TrackRaycast(baseTrackerTransform, _surfaceLayerMask, out var baseHit, 5))
+            if (TrackRaycast(baseTrackerTransform, _surfaceLayerMask, out var baseHit, ChaserDownPositionRange))
             {
                 if (baseHit is null)
                 { 
@@ -122,7 +138,9 @@ public class ChaserManager : MonoBehaviour
                             baseHit.Value.point)
                         - GravityDirectionHandler.GetFloorPointValueDependentOnGravity(_currentGravityDirection,
                             hit.Value.point);
-                if (Math.Abs(heightDifferenceBetweenChaserAndFloor) > 0.00001)
+
+                var isThereGapInFrontOfChaser = Math.Abs(heightDifferenceBetweenChaserAndFloor) > 0.00001;
+                if (isThereGapInFrontOfChaser)
                 {
                     Jump();
                 }
@@ -130,16 +148,16 @@ public class ChaserManager : MonoBehaviour
         }
     }
 
-    private void TrackSteps()
+    private void TrackLedges()
     {
-        if (TrackRaycast(frontTrackerTransform, _surfaceLayerMask, out var frontHit, 2))
+        if (TrackRaycast(frontTrackerTransform, _surfaceLayerMask, out var frontHit, ChaserFrontPositionRange))
         {
             if (frontHit is null)
             {
                 return;
             }
 
-            if (TrackRaycast(upTrackerTransform, _surfaceLayerMask, out var _, 10))
+            if (TrackRaycast(upTrackerTransform, _surfaceLayerMask, out var _, ChaserUpPositionRange))
             {
                 return;
             }
@@ -150,11 +168,13 @@ public class ChaserManager : MonoBehaviour
 
     private void Jump()
     {
-        if (!_isJumping)
+        if (_isJumping)
         {
-            _isJumping = true;
-            chaserRigidbody.AddRelativeForce(Vector3.up * 10, ForceMode.Impulse);
+            return;
         }
+        
+        _isJumping = true;
+        chaserRigidbody.AddRelativeForce(Vector3.up * 10, ForceMode.Impulse);
     }
 
     private bool TrackRaycast(Transform trackerTransform, LayerMask layerMask, out RaycastHit? hitInfo, float range = 15)
@@ -187,23 +207,24 @@ public class ChaserManager : MonoBehaviour
 
     private void ChangeDirection()
     {
-        if (_facingDirection == FacingDirection.Right)
+        switch (_facingDirection)
         {
-            _facingDirection = FacingDirection.Left;
-            transform.rotation = GravityDirectionHandler.Face(_currentGravityDirection, FacingDirection.Left);
+            case FacingDirection.Right:
+                _facingDirection = FacingDirection.Left;
+                transform.rotation = GravityDirectionHandler.Face(_currentGravityDirection, FacingDirection.Left);
+                break;
+            case FacingDirection.Left:
+                _facingDirection = FacingDirection.Right;
+                transform.rotation = GravityDirectionHandler.Face(_currentGravityDirection, FacingDirection.Right);
+                break;
         }
-        else if (_facingDirection == FacingDirection.Left)
-        {
-            _facingDirection = FacingDirection.Right;
-            transform.rotation = GravityDirectionHandler.Face(_currentGravityDirection, FacingDirection.Right);
-        }
-        
+
         _lastTrackerDirection = ChaserTrackerDirection.None;
     }
 
     private void HandleLanding(Collision other)
     {
-        if (other.gameObject.CompareTag("Surface"))
+        if (other.gameObject.CompareTag(Constants.Tags.Surface))
         {
             _isJumping = false;
         }
