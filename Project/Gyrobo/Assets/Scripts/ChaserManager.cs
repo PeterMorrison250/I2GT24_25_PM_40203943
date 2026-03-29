@@ -128,7 +128,23 @@ public class ChaserManager : MonoBehaviour
         }
     }
 
-    private bool TrackRaycast(Transform trackerTransform, LayerMask layerMask, out RaycastHit? hitInfo)
+    private void TrackSteps()
+    {
+        if (TrackRaycast(frontTrackerTransform, _surfaceLayerMask, out var frontHit, 2))
+        {
+            if (frontHit is null)
+            {
+                return;
+            }
+
+            if (TrackRaycast(upTrackerTransform, _surfaceLayerMask, out var _, 10))
+            {
+                return;
+            }
+            
+            Jump();
+        }
+    }
 
     private void Jump()
     {
@@ -143,7 +159,7 @@ public class ChaserManager : MonoBehaviour
     {
         var moveDirection = (trackerTransform.position - transform.position).normalized;
 
-        if (Physics.Raycast(transform.position, moveDirection, out var hit, chasingRange, layerMask))
+        if (Physics.Raycast(transform.position, moveDirection, out var hit, range, layerMask))
         {
             Debug.DrawRay(transform.position, moveDirection * hit.distance, Color.yellow);
             hitInfo = hit;
