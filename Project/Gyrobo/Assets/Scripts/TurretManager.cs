@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Gyrobo;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class TurretManager : MonoBehaviour
 {
@@ -12,11 +8,8 @@ public class TurretManager : MonoBehaviour
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float fireRate;
     [SerializeField] private int fireForce;
-
-    [SerializeField]
-    private Transform playerPosition;
-    [SerializeField]
-    private Transform projectileSpawnPointPosition;
+    [SerializeField] private Transform playerPosition;
+    [SerializeField] private Transform projectileSpawnPointPosition;
 
     private float _nextFire;
     private LayerMask _layerMask;
@@ -32,9 +25,8 @@ public class TurretManager : MonoBehaviour
         {
             return;
         }
-        IsFacingPlayer();
-        TurnToPlayer();
         
+        TrackPlayer();
     }
 
     private bool IsInRange => Vector3.Distance(playerPosition.position, transform.position) <= range;
@@ -46,10 +38,9 @@ public class TurretManager : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
     }
 
-    private void IsFacingPlayer()
+    private void TrackPlayer()
     {
         var moveDirection = (projectileSpawnPointPosition.position - transform.position).normalized;
-        
         if (Physics.Raycast(transform.position, moveDirection, out var hit, range, _layerMask))
         {
             Debug.DrawRay(transform.position, moveDirection * hit.distance, Color.yellow);
@@ -59,6 +50,8 @@ public class TurretManager : MonoBehaviour
         {
             Debug.DrawRay(transform.position, moveDirection * 1000, Color.white);
         }
+        
+        TurnToPlayer();
     }
 
     private void FireProjectile()
