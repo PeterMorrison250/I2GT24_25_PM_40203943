@@ -98,6 +98,7 @@ public class ChaserManager : MonoBehaviour
         if (!_isJumping)
         {
             TrackGaps();
+            TrackSteps();
         }
     }
 
@@ -120,11 +121,7 @@ public class ChaserManager : MonoBehaviour
                 var heightDifferenceBetweenChaserAndFloor = baseHit.Value.point.y - hit.Value.point.y;
                 if (Math.Abs(heightDifferenceBetweenChaserAndFloor) > 0.00001)
                 {
-                    if (!_isJumping)
-                    {
-                        _isJumping = true;
-                        chaserRigidbody.AddForce(Vector3.up * 10, ForceMode.Impulse);
-                    }
+                    Jump();
                 
                 }
             }
@@ -132,6 +129,17 @@ public class ChaserManager : MonoBehaviour
     }
 
     private bool TrackRaycast(Transform trackerTransform, LayerMask layerMask, out RaycastHit? hitInfo)
+
+    private void Jump()
+    {
+        if (!_isJumping)
+        {
+            _isJumping = true;
+            chaserRigidbody.AddForce(Vector3.up * 10, ForceMode.Impulse);
+        }
+    }
+
+    private bool TrackRaycast(Transform trackerTransform, LayerMask layerMask, out RaycastHit? hitInfo, float range = 15)
     {
         var moveDirection = (trackerTransform.position - transform.position).normalized;
 
