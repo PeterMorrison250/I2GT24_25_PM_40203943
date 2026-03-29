@@ -1,4 +1,5 @@
 using System;
+using Gyrobo;
 using Gyrobo.Enums;
 using UnityEngine;
 
@@ -32,6 +33,7 @@ public class ChaserManager : MonoBehaviour
 
     private void Start()
     {
+        GravityController.GravityChanged += HandleGravityChanged;
         chaserRigidbody =  GetComponent<Rigidbody>();
     }
 
@@ -202,5 +204,9 @@ public class ChaserManager : MonoBehaviour
         {
             _isJumping = false;
         }
+    }
+    
+    private void HandleGravityChanged(object sender, GravityChangedEventArgs e)
+    {
     }
 }
