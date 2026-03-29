@@ -6,6 +6,7 @@ public class ChaserManager : MonoBehaviour
 {
     [SerializeField] private float range;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private Transform frontTrackerTransform;
     
     private LayerMask _layerMask;
     
