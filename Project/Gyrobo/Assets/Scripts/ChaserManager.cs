@@ -31,22 +31,29 @@ public class ChaserManager : MonoBehaviour
 
     private void TrackPlayer()
     {
-        TrackRaycast(frontTrackerTransform);
-        TrackRaycast(upTrackerTransform);
+        var isTrackingFront = TrackRaycast(frontTrackerTransform);
+        var isTrackingUp = TrackRaycast(upTrackerTransform);
+
+        if (isTrackingFront
+            || isTrackingUp)
+        {
+            ChasePlayer();
+        }
     }
 
-    private void TrackRaycast(Transform trackerTransform)
+    private bool TrackRaycast(Transform trackerTransform)
     {
         var moveDirection = (trackerTransform.position - transform.position).normalized;
 
         if (Physics.Raycast(transform.position, moveDirection, out var hit, range, _layerMask))
         {
             Debug.DrawRay(transform.position, moveDirection * hit.distance, Color.yellow);
-            ChasePlayer();
+            return true;
         }
         else
         {
             Debug.DrawRay(transform.position, moveDirection * 1000, Color.white);
+            return false;
         }
     }
 
