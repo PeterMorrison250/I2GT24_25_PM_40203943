@@ -23,6 +23,7 @@ public class ChaserManager : MonoBehaviour
     private FacingDirection _facingDirection = FacingDirection.Left;
 
     private bool _isJumping;
+    private GravityDirection _currentGravityDirection;
     
     private void Awake()
     {
@@ -175,7 +176,7 @@ public class ChaserManager : MonoBehaviour
         {
             var step = speed * Time.deltaTime;
             var positionAlongPlatform = new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z);
-            transform.position = Vector3.MoveTowards(transform.position, positionAlongPlatform, step);
+            //transform.position = Vector3.MoveTowards(transform.position, positionAlongPlatform, step);
         }
 
         _chaserState = IsInAttackingRange ? ChaserState.Attacking : ChaserState.Chasing;
@@ -186,12 +187,12 @@ public class ChaserManager : MonoBehaviour
         if (_facingDirection == FacingDirection.Right)
         {
             _facingDirection = FacingDirection.Left;
-            transform.rotation = Quaternion.Euler(0, 90, 0);
+            transform.rotation = GravityDirectionHandler.Face(_currentGravityDirection, FacingDirection.Left);
         }
         else if (_facingDirection == FacingDirection.Left)
         {
             _facingDirection = FacingDirection.Right;
-            transform.rotation = Quaternion.Euler(0, 270, 0);
+            transform.rotation = GravityDirectionHandler.Face(_currentGravityDirection, FacingDirection.Right);
         }
         
         _lastTrackerDirection = ChaserTrackerDirection.None;
@@ -208,5 +209,12 @@ public class ChaserManager : MonoBehaviour
     
     private void HandleGravityChanged(object sender, GravityChangedEventArgs e)
     {
+        _currentGravityDirection = e.GravityDirection;
+        RotateToGravity();
+    }
+    
+    private void RotateToGravity()
+    {
+        transform.rotation = GravityDirectionHandler.Face(_currentGravityDirection, _facingDirection);
     }
 }
