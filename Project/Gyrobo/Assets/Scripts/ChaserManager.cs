@@ -7,6 +7,7 @@ public class ChaserManager : MonoBehaviour
     [SerializeField] private float range;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform frontTrackerTransform;
+    [SerializeField] private Transform upTrackerTransform;
     [SerializeField] private float speed;
     
     private LayerMask _layerMask;
@@ -31,6 +32,7 @@ public class ChaserManager : MonoBehaviour
     private void TrackPlayer()
     {
         TrackRaycast(frontTrackerTransform);
+        TrackRaycast(upTrackerTransform);
     }
 
     private void TrackRaycast(Transform trackerTransform)
