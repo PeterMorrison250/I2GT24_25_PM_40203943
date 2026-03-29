@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Gyrobo.Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ChaserManager : MonoBehaviour
 {
-    [SerializeField] private float range;
+    [SerializeField] private float chasingRange;
+    [SerializeField] private float attackingRange;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform frontTrackerTransform;
     [SerializeField] private Transform upTrackerTransform;
@@ -23,7 +25,7 @@ public class ChaserManager : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (!IsInRange)
+        if (!IsInChasingRange)
         {
             return;
         }
@@ -31,7 +33,7 @@ public class ChaserManager : MonoBehaviour
         TrackPlayer();
     }
     
-    private bool IsInRange => Vector3.Distance(playerTransform.position, transform.position) <= range;
+    private bool IsInChasingRange => Vector3.Distance(playerTransform.position, transform.position) <= chasingRange;
 
     private void TrackPlayer()
     {
@@ -56,7 +58,7 @@ public class ChaserManager : MonoBehaviour
     {
         var moveDirection = (trackerTransform.position - transform.position).normalized;
 
-        if (Physics.Raycast(transform.position, moveDirection, out var hit, range, _layerMask))
+        if (Physics.Raycast(transform.position, moveDirection, out var hit, chasingRange, _layerMask))
         {
             Debug.DrawRay(transform.position, moveDirection * hit.distance, Color.yellow);
             return true;

@@ -984,7 +984,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b2602a77b9edd419d094b31cc36fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 10
+  chasingRange: 10
+  attackingRange: 2
   playerTransform: {fileID: 781570424}
   frontTrackerTransform: {fileID: 787148182}
   upTrackerTransform: {fileID: 2044357660}
