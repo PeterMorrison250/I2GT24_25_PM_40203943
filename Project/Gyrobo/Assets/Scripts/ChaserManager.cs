@@ -73,14 +73,7 @@ public class ChaserManager : MonoBehaviour
             var positionAlongPlatform = new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z);
             transform.position = Vector3.MoveTowards(transform.position, positionAlongPlatform, step);
         }
-        
-        if (IsInAttackingRange)
-        {
-            _chaserState = ChaserState.Attacking;
-        }
-        else
-        {
-            _chaserState = ChaserState.Chasing;
-        }
+
+        _chaserState = IsInAttackingRange ? ChaserState.Attacking : ChaserState.Chasing;
     }
 }
