@@ -477,6 +477,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2691667259790122435, guid: 267e68f57bb5ace4f83ae0551f60c6db, type: 3}
   m_PrefabInstance: {fileID: 172658100}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &192184750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 192184751}
+  m_Layer: 0
+  m_Name: DownTracker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &192184751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192184750}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0.25, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 925235174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &301875782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -938,6 +969,7 @@ Transform:
   - {fileID: 90203037}
   - {fileID: 787148182}
   - {fileID: 2044357660}
+  - {fileID: 192184751}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &925235175
