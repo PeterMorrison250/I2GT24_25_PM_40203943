@@ -15,6 +15,7 @@ public class ChaserManager : MonoBehaviour
     private LayerMask _layerMask;
     private ChaserState _chaserState;
     private ChaserTrackerDirection _lastTrackerDirection;
+    private FacingDirection _facingDirection = FacingDirection.Left;
     
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class ChaserManager : MonoBehaviour
     {
         if (!IsInChasingRange)
         {
+            _lastTrackerDirection = ChaserTrackerDirection.None;
             return;
         }
 
@@ -63,7 +65,13 @@ public class ChaserManager : MonoBehaviour
         }
         else
         {
-            _chaserState = ChaserState.Idle;
+            //_chaserState = ChaserState.Idle;
+        }
+
+        if (_lastTrackerDirection is not ChaserTrackerDirection.None
+            && TrackRaycast(backTrackerTransform))
+        {
+            ChangeDirection();
         }
     }
 
@@ -91,5 +99,22 @@ public class ChaserManager : MonoBehaviour
         }
 
         _chaserState = IsInAttackingRange ? ChaserState.Attacking : ChaserState.Chasing;
+    }
+
+    private void ChangeDirection()
+    {
+        if (_facingDirection == FacingDirection.Right)
+        {
+            _facingDirection = FacingDirection.Left;
+            transform.rotation = Quaternion.Euler(0, 90, 0);
+        }
+
+        if (_facingDirection == FacingDirection.Left)
+        {
+            _facingDirection = FacingDirection.Right;
+            transform.rotation = Quaternion.Euler(0, 270, 0);
+        }
+        
+        _lastTrackerDirection = ChaserTrackerDirection.None;
     }
 }
