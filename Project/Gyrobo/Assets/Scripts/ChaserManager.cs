@@ -34,6 +34,7 @@ public class ChaserManager : MonoBehaviour
         }
 
         TrackPlayer();
+        TrackSurfaces();
     }
     
     private bool IsInChasingRange => Vector3.Distance(playerTransform.position, transform.position) <= chasingRange;
@@ -43,19 +44,19 @@ public class ChaserManager : MonoBehaviour
     {
         var isTracking = false;
         
-        if (TrackRaycast(frontTrackerTransform, _playerLayerMask))
+        if (TrackRaycast(frontTrackerTransform, _playerLayerMask, out _))
         {
             _lastTrackerDirection = ChaserTrackerDirection.Front;
             isTracking = true;
         }
         
-        if (TrackRaycast(upTrackerTransform, _playerLayerMask))
+        if (TrackRaycast(upTrackerTransform, _playerLayerMask, out _))
         {
             _lastTrackerDirection = ChaserTrackerDirection.Up;
             isTracking = true;
         }
         
-        if (TrackRaycast(downTrackerTransform, _playerLayerMask))
+        if (TrackRaycast(downTrackerTransform, _playerLayerMask, out _))
         {
             _lastTrackerDirection = ChaserTrackerDirection.Down;
             isTracking = true;
@@ -67,7 +68,7 @@ public class ChaserManager : MonoBehaviour
         }
 
         if (_lastTrackerDirection is not ChaserTrackerDirection.None
-            && TrackRaycast(backTrackerTransform, _playerLayerMask))
+            && TrackRaycast(backTrackerTransform, _playerLayerMask, out _))
         {
             ChangeDirection();
         }
@@ -75,23 +76,33 @@ public class ChaserManager : MonoBehaviour
 
     private void TrackSurfaces()
     {
-        if (TrackRaycast(downTrackerTransform, _surfaceLayerMask))
+        if (TrackRaycast(downTrackerTransform, _surfaceLayerMask, out var hit))
         {
-            
+            if (hit is null)
+            {
+                return;
+            }
+
+            if (hit.Value.point.y < transform.position.y - 1)
+            {
+                var s = 5;
+            }
         }
     }
 
-    private bool TrackRaycast(Transform trackerTransform, LayerMask layerMask)
+    private bool TrackRaycast(Transform trackerTransform, LayerMask layerMask, out RaycastHit? hitInfo)
     {
         var moveDirection = (trackerTransform.position - transform.position).normalized;
 
         if (Physics.Raycast(transform.position, moveDirection, out var hit, chasingRange, layerMask))
         {
             Debug.DrawRay(transform.position, moveDirection * hit.distance, Color.yellow);
+            hitInfo = hit;
             return true;
         }
         
         Debug.DrawRay(transform.position, moveDirection * 1000, Color.white);
+        hitInfo = null;
         return false;
     }
 
