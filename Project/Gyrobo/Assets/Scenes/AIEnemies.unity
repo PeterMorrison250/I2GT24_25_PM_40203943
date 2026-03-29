@@ -1219,8 +1219,9 @@ MonoBehaviour:
   upTrackerTransform: {fileID: 2044357660}
   downTrackerTransform: {fileID: 192184751}
   backTrackerTransform: {fileID: 800615224}
+  baseTrackerTransform: {fileID: 1459418296}
   speed: 5
-  chaserRigidbody: {fileID: 0}
+  chaserRigidbody: {fileID: 925235176}
 --- !u!54 &925235176
 Rigidbody:
   m_ObjectHideFlags: 0

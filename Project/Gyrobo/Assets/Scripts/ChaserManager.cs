@@ -11,6 +11,7 @@ public class ChaserManager : MonoBehaviour
     [SerializeField] private Transform upTrackerTransform;
     [SerializeField] private Transform downTrackerTransform;
     [SerializeField] private Transform backTrackerTransform;
+    [SerializeField] private Transform baseTrackerTransform;
     [SerializeField] private float speed;
     [SerializeField] private Rigidbody chaserRigidbody;
     
