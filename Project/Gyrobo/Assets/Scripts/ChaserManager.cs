@@ -29,7 +29,7 @@ public class ChaserManager : MonoBehaviour
 
     private void TrackPlayer()
     {
-        var moveDirection = (playerTransform.position - transform.position).normalized;
+        var moveDirection = (frontTrackerTransform.position - transform.position).normalized;
 
         if (Physics.Raycast(transform.position, moveDirection, out var hit, range, _layerMask))
         {
