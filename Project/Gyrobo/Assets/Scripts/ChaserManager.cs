@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Gyrobo.Enums;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ChaserManager : MonoBehaviour
 {
