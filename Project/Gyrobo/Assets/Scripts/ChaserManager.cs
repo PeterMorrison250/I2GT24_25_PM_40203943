@@ -1,3 +1,4 @@
+using System;
 using Gyrobo.Enums;
 using UnityEngine;
 
@@ -83,9 +84,10 @@ public class ChaserManager : MonoBehaviour
                 return;
             }
 
-            if (hit.Value.point.y < transform.position.y - 1)
+            var heightDifferenceBetweenChaserAndFloor = transform.position.y - hit.Value.point.y - 1;
+            if (Math.Abs(heightDifferenceBetweenChaserAndFloor) > 0.00001)
             {
-                var s = 5;
+                // TODO: jump logic
             }
         }
     }
