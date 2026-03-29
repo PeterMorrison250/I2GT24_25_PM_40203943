@@ -53,6 +53,7 @@ public class ChaserManager : MonoBehaviour
     private void ChasePlayer()
     {
         var step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, step);
+        var positionAlongPlatform = new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z);
+        transform.position = Vector3.MoveTowards(transform.position, positionAlongPlatform, step);
     }
 }
