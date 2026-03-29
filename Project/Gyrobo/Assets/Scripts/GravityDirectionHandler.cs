@@ -45,20 +45,33 @@ namespace Gyrobo
                     return default;
             }
         }
-        
-        public static Vector3 JumpDirection(GravityDirection gravityDirection)
+
+        public static Vector3 TrackAlongSurface(GravityDirection gravityDirection, Transform transform, Transform targetTransform)
         {
             switch (gravityDirection)
             {
                 case GravityDirection.Down:
-                    return Vector3.up;
                 case GravityDirection.Up:
-                    return Vector3.down;
+                    return new Vector3(targetTransform.position.x, transform.position.y, targetTransform.position.z);
                 case GravityDirection.Right:
-                    return Vector3.left;
+                    return new Vector3(transform.position.x, targetTransform.position.y, targetTransform.position.z);
                 case GravityDirection.Left:
-                    return Vector3.right;
-                default: return Vector3.up;
+                    return new Vector3(transform.position.x, targetTransform.position.y, targetTransform.position.z);
+                default: return new Vector3(targetTransform.position.x, transform.position.y, targetTransform.position.z);
+            }
+        }
+
+        public static float GetFloorPointValueDependentOnGravity(GravityDirection gravityDirection, Vector3 point)
+        {
+            switch (gravityDirection)
+            {
+                case GravityDirection.Down:
+                case GravityDirection.Up:
+                    return point.y;
+                case GravityDirection.Right:
+                case GravityDirection.Left:
+                    return point.x;
+                default: return point.y;
             }
         }
     }

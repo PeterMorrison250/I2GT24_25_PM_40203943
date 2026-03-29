@@ -103,25 +103,28 @@ public class ChaserManager : MonoBehaviour
 
     private void TrackGaps()
     {
-        if (TrackRaycast(downTrackerTransform, _surfaceLayerMask, out var hit))
-        {
+        if (TrackRaycast(downTrackerTransform, _surfaceLayerMask, out var hit, 5))
+        { 
             if (hit is null)
-            {
+            { 
                 return;
             }
 
-            if (TrackRaycast(baseTrackerTransform, _surfaceLayerMask, out var baseHit))
+            if (TrackRaycast(baseTrackerTransform, _surfaceLayerMask, out var baseHit, 5))
             {
                 if (baseHit is null)
-                {
+                { 
                     return;
                 }
-                
-                var heightDifferenceBetweenChaserAndFloor = baseHit.Value.point.y - hit.Value.point.y;
+                    
+                var heightDifferenceBetweenChaserAndFloor =
+                        GravityDirectionHandler.GetFloorPointValueDependentOnGravity(_currentGravityDirection,
+                            baseHit.Value.point)
+                        - GravityDirectionHandler.GetFloorPointValueDependentOnGravity(_currentGravityDirection,
+                            hit.Value.point);
                 if (Math.Abs(heightDifferenceBetweenChaserAndFloor) > 0.00001)
                 {
                     Jump();
-                
                 }
             }
         }
@@ -150,7 +153,7 @@ public class ChaserManager : MonoBehaviour
         if (!_isJumping)
         {
             _isJumping = true;
-            chaserRigidbody.AddForce(GravityDirectionHandler.JumpDirection(_currentGravityDirection) * 10, ForceMode.Impulse);
+            chaserRigidbody.AddRelativeForce(Vector3.up * 10, ForceMode.Impulse);
         }
     }
 
@@ -175,7 +178,7 @@ public class ChaserManager : MonoBehaviour
         if (_chaserState == ChaserState.Chasing)
         {
             var step = speed * Time.deltaTime;
-            var positionAlongPlatform = new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z);
+            var positionAlongPlatform = GravityDirectionHandler.TrackAlongSurface(_currentGravityDirection, transform, playerTransform);
             transform.position = Vector3.MoveTowards(transform.position, positionAlongPlatform, step);
         }
 
@@ -200,8 +203,7 @@ public class ChaserManager : MonoBehaviour
 
     private void HandleLanding(Collision other)
     {
-        if (_isJumping 
-            && other.gameObject.CompareTag("Surface"))
+        if (other.gameObject.CompareTag("Surface"))
         {
             _isJumping = false;
         }
