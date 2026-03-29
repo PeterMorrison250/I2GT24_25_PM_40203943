@@ -954,6 +954,7 @@ MonoBehaviour:
   range: 10
   playerTransform: {fileID: 781570424}
   frontTrackerTransform: {fileID: 787148182}
+  speed: 5
 --- !u!54 &925235176
 Rigidbody:
   m_ObjectHideFlags: 0

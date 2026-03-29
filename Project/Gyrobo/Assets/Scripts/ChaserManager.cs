@@ -7,6 +7,7 @@ public class ChaserManager : MonoBehaviour
     [SerializeField] private float range;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform frontTrackerTransform;
+    [SerializeField] private float speed;
     
     private LayerMask _layerMask;
     
