@@ -50,11 +50,9 @@ public class ChaserManager : MonoBehaviour
             Debug.DrawRay(transform.position, moveDirection * hit.distance, Color.yellow);
             return true;
         }
-        else
-        {
-            Debug.DrawRay(transform.position, moveDirection * 1000, Color.white);
-            return false;
-        }
+        
+        Debug.DrawRay(transform.position, moveDirection * 1000, Color.white);
+        return false;
     }
 
     private void ChasePlayer()
