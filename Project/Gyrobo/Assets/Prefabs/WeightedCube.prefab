@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6510585376548987685}
   - component: {fileID: 3695083330009601018}
   - component: {fileID: 2240042244742128961}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WeightedCube
-  m_TagString: Untagged
+  m_TagString: Surface
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

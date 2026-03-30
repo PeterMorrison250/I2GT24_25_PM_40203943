@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScreen.unity
     guid: 9be1795e011f75e4d94dfee21c80eef1
   - enabled: 1
+    path: Assets/Scenes/Turrets.unity
+    guid: fdbe6b884149799448dcfcfccbd6849d
+  - enabled: 1
+    path: Assets/Scenes/Chaser.unity
+    guid: f0b3e8a32e1c1254595645d118ef3502
+  - enabled: 1
     path: Assets/Scenes/Corridor.unity
     guid: b91ea702f1efd324d86eba07fd1953ea
   - enabled: 1
