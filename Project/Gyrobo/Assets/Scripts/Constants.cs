@@ -20,6 +20,7 @@
             public const string Player = "Player";
             public const string GameManager = "GameManager";
             public const string Wall = "Wall";
+            public const string Surface = "Surface";
         }
     }
 }
