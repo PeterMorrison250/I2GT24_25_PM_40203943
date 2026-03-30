@@ -15,6 +15,7 @@ public class ChaserManager : MonoBehaviour
     [SerializeField] private Transform baseTrackerTransform;
     [SerializeField] private float speed;
     [SerializeField] private Rigidbody chaserRigidbody;
+    [SerializeField] private PlayerController playerController;
     
     private LayerMask _playerLayerMask;
     private LayerMask _surfaceLayerMask;
@@ -22,6 +23,7 @@ public class ChaserManager : MonoBehaviour
     private ChaserTrackerDirection _lastTrackerDirection;
     private FacingDirection _facingDirection = FacingDirection.Left;
     private bool _isJumping;
+    private bool _isAttacking;
     private GravityDirection _currentGravityDirection;
 
     private static readonly float GapDetectionRange = 5;
@@ -39,7 +41,6 @@ public class ChaserManager : MonoBehaviour
     private void Start()
     {
         GravityController.GravityChanged += HandleGravityChanged;
-        chaserRigidbody =  GetComponent<Rigidbody>();
     }
 
     private void OnDisable()
@@ -63,10 +64,20 @@ public class ChaserManager : MonoBehaviour
     protected void OnCollisionEnter(Collision other)
     {
         HandleLanding(other);
+
+        if (_isAttacking && other.gameObject.CompareTag(Constants.Tags.Player))
+        {
+            playerController.DamagePlayer();
+        }
     }
 
     private bool IsInChasingRange => Vector3.Distance(playerTransform.position, transform.position) <= chasingRange;
-    private bool IsInAttackingRange => Vector3.Distance(playerTransform.position, transform.position) <= attackingRange;
+
+    private bool IsInAttackingRange()
+    {
+        _isAttacking = Vector3.Distance(playerTransform.position, transform.position) <= attackingRange;
+        return _isAttacking;
+    }
 
     private bool HasPlayerJumpedBehindChaser => _lastTrackerDirection is not ChaserTrackerDirection.None
                                                 && TrackRaycast(backTrackerTransform, _playerLayerMask, out _);
@@ -203,19 +214,15 @@ public class ChaserManager : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, positionAlongPlatform, step);
         }
 
-        _chaserState = IsInAttackingRange ? ChaserState.Attacking : ChaserState.Chasing;
-
-        if (_chaserState is ChaserState.Attacking)
-        {
-            //TODO: Attack
-        }
+        _chaserState = IsInAttackingRange() ? ChaserState.Attacking : ChaserState.Chasing;
     }
-
+    
     private void ChangeDirection()
     {
         switch (_facingDirection)
         {
             case FacingDirection.Right:
+            default:
                 _facingDirection = FacingDirection.Left;
                 transform.rotation = GravityDirectionHandler.Face(_currentGravityDirection, FacingDirection.Left);
                 break;

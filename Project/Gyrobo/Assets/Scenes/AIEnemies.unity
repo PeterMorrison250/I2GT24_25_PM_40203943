@@ -1132,6 +1132,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6946608687785057714, guid: 1bd7eda3964939d429ce53825588a9e7, type: 3}
   m_PrefabInstance: {fileID: 781570422}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &781570426 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3178922641468918538, guid: 1bd7eda3964939d429ce53825588a9e7, type: 3}
+  m_PrefabInstance: {fileID: 781570422}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781570423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1c50a881dff7e499c60a0ed98b94a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &787148181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,7 +1168,7 @@ Transform:
   m_GameObject: {fileID: 787148181}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1387,7 +1398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chasingRange: 15
-  attackingRange: 2
+  attackingRange: 1.5
   playerTransform: {fileID: 781570424}
   frontTrackerTransform: {fileID: 787148182}
   upTrackerTransform: {fileID: 2044357660}
@@ -1396,6 +1407,7 @@ MonoBehaviour:
   baseTrackerTransform: {fileID: 1459418296}
   speed: 5
   chaserRigidbody: {fileID: 925235176}
+  playerController: {fileID: 781570426}
 --- !u!54 &925235176
 Rigidbody:
   m_ObjectHideFlags: 0
