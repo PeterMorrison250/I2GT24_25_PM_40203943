@@ -118,5 +118,21 @@ namespace Gyrobo
         {
             transform.rotation = Quaternion.Euler(0f, 0f, (float)direction);
         }
+
+        private void OnHasDied()
+        {
+            HasDied?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void HandleGravityChanged(object sender, GravityChangedEventArgs e)
+        {
+            airTime = 0;
+            RotateToGravity(e.GravityDirection);
+        }
+
+        private void RotateToGravity(GravityDirection direction)
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f, (float)direction);
+        }
     }
 }
