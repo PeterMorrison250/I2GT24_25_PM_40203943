@@ -77,6 +77,11 @@ namespace Gyrobo
                     airTime = 0;
                 }
             }
+
+            if (collision.gameObject.CompareTag("Projectile"))
+            {
+                DamagePlayer();
+            }
         }
 
         private void DetectMovement()

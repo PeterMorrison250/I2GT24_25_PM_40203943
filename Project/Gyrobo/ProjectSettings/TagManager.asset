@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Surface
   - Seen
+  - Projectile
   layers:
   - Default
   - TransparentFX

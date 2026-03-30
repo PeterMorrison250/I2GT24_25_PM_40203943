@@ -14,6 +14,7 @@ namespace Gyrobo
             {"TitleScreen", new LevelBoundary{MinX = 20, MaxX = -30, MinY = 0, MaxY = 60}},
             {"GravityLasers", new LevelBoundary{MinX = 40, MaxX = -30, MinY = 0, MaxY = 60}},
             {"AIEnemies", new LevelBoundary{MinX = 40, MaxX = -30, MinY = 0, MaxY = 60}},
+            {"Turrets", new LevelBoundary{MinX = 1000, MaxX = -1000, MinY = -1000, MaxY = 1000}}
         };
     }
 }
