@@ -5,6 +5,8 @@
         None,
         Up,
         Down,
-        Front
+        Front,
+        FrontUp,
+        FrontDown
     }
 }

@@ -9,6 +9,8 @@ public class ChaserManager : MonoBehaviour
     [SerializeField] private float attackingRange;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform frontTrackerTransform;
+    [SerializeField] private Transform frontUpTrackerTransform;
+    [SerializeField] private Transform frontDownTrackerTransform;
     [SerializeField] private Transform upTrackerTransform;
     [SerializeField] private Transform downTrackerTransform;
     [SerializeField] private Transform backTrackerTransform;
@@ -105,6 +107,12 @@ public class ChaserManager : MonoBehaviour
             isTracking = true;
         }
         
+        if (TrackRaycast(frontUpTrackerTransform, _playerLayerMask, out _))
+        {
+            _lastTrackerDirection = ChaserTrackerDirection.FrontUp;
+            isTracking = true;
+        }
+        
         if (TrackRaycast(upTrackerTransform, _playerLayerMask, out _))
         {
             _lastTrackerDirection = ChaserTrackerDirection.Up;
@@ -114,6 +122,12 @@ public class ChaserManager : MonoBehaviour
         if (TrackRaycast(downTrackerTransform, _playerLayerMask, out _))
         {
             _lastTrackerDirection = ChaserTrackerDirection.Down;
+            isTracking = true;
+        }
+        
+        if (TrackRaycast(frontDownTrackerTransform, _playerLayerMask, out _))
+        {
+            _lastTrackerDirection = ChaserTrackerDirection.FrontDown;
             isTracking = true;
         }
         

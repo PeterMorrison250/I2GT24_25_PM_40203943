@@ -18,8 +18,6 @@ public class GameManager : MonoBehaviour, IResetable
     public GameObject finishCube;
     public TextMeshProUGUI levelCompleteText;
     public Button NextLevelButton;
-
-    public GameObject Chaser;
     
     public bool IsGameOver = false;
     public bool IsLevelComplete = false;
@@ -31,7 +29,6 @@ public class GameManager : MonoBehaviour, IResetable
     private GravityController _gravityController;
     private LevelController _levelController;
     private LevelBoundary _levelBoundary;
-    private ChaserManager _chaserManager;
     
     // Start is called before the first frame update
     void Start()
@@ -41,9 +38,6 @@ public class GameManager : MonoBehaviour, IResetable
         _playerController.HasDied += HandlePlayerHasDied;
         _levelController = finishCube.GetComponent<LevelController>();
         _levelController.LevelComplete += HandleLevelComplete;
-        
-        _chaserManager = Chaser.GetComponent<ChaserManager>();
-        
 
         var sceneName = SceneManager.GetActiveScene().name;
         _levelBoundary = LevelBoundaryManager.LevelBoundaryDictionary[sceneName];
